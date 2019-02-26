@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+"emd_test_bencher\startup_stm32f103xe.o"
+"emd_test_bencher\stm32f1xx_hal_msp.o"
+"emd_test_bencher\stm32f1xx_it.o"
+"emd_test_bencher\main.o"
+"emd_test_bencher\system_stm32f1xx.o"
+"emd_test_bencher\stm32f1xx_hal_tim_ex.o"
+"emd_test_bencher\stm32f1xx_hal.o"
+"emd_test_bencher\stm32f1xx_hal_flash_ex.o"
+"emd_test_bencher\stm32f1xx_hal_rcc_ex.o"
+"emd_test_bencher\stm32f1xx_hal_adc.o"
+"emd_test_bencher\stm32f1xx_hal_tim.o"
+"emd_test_bencher\stm32f1xx_hal_gpio.o"
+"emd_test_bencher\stm32f1xx_hal_rcc.o"
+"emd_test_bencher\stm32f1xx_hal_pwr.o"
+"emd_test_bencher\stm32f1xx_hal_cortex.o"
+"emd_test_bencher\stm32f1xx_hal_gpio_ex.o"
+"emd_test_bencher\stm32f1xx_hal_adc_ex.o"
+"emd_test_bencher\stm32f1xx_hal_uart.o"
+"emd_test_bencher\stm32f1xx_hal_flash.o"
+"emd_test_bencher\stm32f1xx_hal_dma.o"
+--library_type=microlib --strict --scatter "EMD_TEST_BENCHER\EMD_TEST_BENCHER.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "EMD_TEST_BENCHER.map" -o EMD_TEST_BENCHER\EMD_TEST_BENCHER.axf
