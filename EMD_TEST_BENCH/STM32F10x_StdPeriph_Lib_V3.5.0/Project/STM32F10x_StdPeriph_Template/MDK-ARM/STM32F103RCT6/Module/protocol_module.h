@@ -66,7 +66,11 @@
 #define SENT_RTC_BYTES						0x69	//下位机发送给上位机总字节数
 #define GET_RTC_INFO							0x70  //上位机发送获取下位机的rtc信息命令
 #define SEND_RTC_INFO							0x71	//下位机发送rtc信息给上位机
+#define GET_SW_VERSION						0x72	//获取软件版本
+#define SEND_SW_VERSION						0x73	//发送软件版本
 
+#define GET_PRESSURE_ZERO_POINT		0x74  //上位机发送获取压力sensor的截距
+#define SEND_PRESSURE_ZERO_POINT	0x75	//下位机发送截距
 
 //定义上位机写入flash的起始地址
 #define FLASH_PAGE_SIZE      			((uint16_t)0x400)  //flash一页的大小为1K
@@ -129,4 +133,9 @@ void get_parameter_to_buf_by_frameId(uint8_t* pdata,char frameId);
 void send_prameter_fram1_to_PC(void);
 void send_prameter_fram2_to_PC(void);
 void record_dateTime(SYSTEM_CODE code);
+
+void send_get_sw_version(void);
+void SendQuery1ForParameters(void);
+void SendQuery2ForParameters(void);
+void send_get_pressure_zero_point(void);
 #endif

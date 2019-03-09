@@ -39,3 +39,5 @@
 .\stm32f103rct6\obj\hardware.o: .\STM32F103RCT6\System\cmd\CMD_Receive.h
 .\stm32f103rct6\obj\hardware.o: .\STM32F103RCT6\App\comm_task.h
 .\stm32f103rct6\obj\hardware.o: STM32F103RCT6\Hardware\Motor_pwm.h
+.\stm32f103rct6\obj\hardware.o: STM32F103RCT6\Hardware\lcd.h
+.\stm32f103rct6\obj\hardware.o: .\STM32F103RCT6\LANG\lang.h

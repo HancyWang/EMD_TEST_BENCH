@@ -20,13 +20,16 @@
 /**********************************
 *宏定义
 ***********************************/
+
+//#define INTERRUPT_3_KEYS
+
 //LED PORT and PIN
-#define LED_PIN							GPIO_Pin_0
-#define LED_PORT						GPIOB
+#define LED_PIN										GPIO_Pin_0
+#define LED_PORT									GPIOB
 
 //BELL PORT and PIN
-#define BELL_PIN						GPIO_Pin_1
-#define BELL_PORT						GPIOB
+#define BELL_PIN									GPIO_Pin_1
+#define BELL_PORT									GPIOB
 
 //STOP PORT and PIN
 #define STOP_PIN									GPIO_Pin_4
@@ -39,6 +42,10 @@
 //NEXT PORT and PIN
 #define NEXT_PIN									GPIO_Pin_6
 #define NEXT_PORT									GPIOA
+
+//VALVE PORT and PIN
+#define VALVE_PIN									GPIO_Pin_8
+#define VALVE_PORT								GPIOA
 
 //ADC1
 #define ADC1_MOTOR_CURRENT1_PIN		GPIO_Pin_0
@@ -115,9 +122,28 @@
 #define I2C_SDA_PORT							GPIOB
 #define I2C_SCL_PIN								GPIO_Pin_9
 #define I2C_SCL_PORT							GPIOB
+#define RST_IO_PIN								GPIO_Pin_15
+#define RST_IO_PORT								GPIOA
 
 
 #define ADC1_DR_Address    ((uint32_t)0x4001244C)
+
+
+typedef enum
+{
+	ENUM_PIN_LED,
+	ENUM_PIN_BELL,
+	ENUM_PIN_START,
+	ENUM_PIN_STOP,
+	ENUM_PIN_JDQ1,
+	ENUM_PIN_JDQ2,
+	ENUM_PIN_JDQ3,
+	ENUM_PIN_START_KEY,
+	ENUM_PIN_MODE_KEY,
+	ENUM_PIN_V1,
+	ENUM_PIN_V2,
+	ENUM_PIN_VALVE
+}PIN_NAME;
 
 /***********************************
 * 全局变量
@@ -232,4 +258,13 @@ void Init_MODE_KEY(void);
 
 //USART2,communicate with PCBA
 void Init_UART_Comm_with_PCBA(void);
+
+void Init_I2C(void);
+
+//void Set_V1(BOOL b_open);
+//void Set_V2(BOOL b_open);
+//void Set_JDQ1(BOOL b_open);
+//void Set_JDQ2(BOOL b_open);
+//void Set_JDQ3(BOOL b_open);
+void Set_PIN(PIN_NAME name,BOOL b_open);
 #endif

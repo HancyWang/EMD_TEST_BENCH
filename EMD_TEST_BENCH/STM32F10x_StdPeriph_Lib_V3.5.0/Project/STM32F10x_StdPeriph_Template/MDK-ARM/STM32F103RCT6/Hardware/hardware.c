@@ -39,6 +39,8 @@
 #include "CMD_Receive.h"
 #include "comm_task.h"
 #include "Motor_pwm.h"
+#include "lcd.h"
+#include "lang.h"
 
 //全局变量
 __IO uint16_t ADCConvertedValue[3];
@@ -105,16 +107,87 @@ void Init_LED()
 /**************************************************************
 * 设置LED状态
 **************************************************************/
-void Set_LED(BOOL b_open)
+//void Set_LED(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(LED_PORT,LED_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(LED_PORT,LED_PIN);
+//	}
+//}
+
+
+
+void Set_PIN(PIN_NAME name,BOOL b_open)
 {
+	GPIO_TypeDef* GPIO_X=0;
+	uint16_t      PIN_X=0;
+	switch((int)name)
+	{
+		case ENUM_PIN_LED:
+			GPIO_X=LED_PORT;
+			PIN_X=LED_PIN;
+			break;
+		case ENUM_PIN_BELL:
+			GPIO_X=BELL_PORT;
+			PIN_X=BELL_PIN;
+			break;
+		case ENUM_PIN_START:
+			GPIO_X=START_PORT;
+			PIN_X=START_PIN;
+			break;
+		case ENUM_PIN_STOP:
+			GPIO_X=STOP_PORT;
+			PIN_X=STOP_PIN;
+			break;
+		case ENUM_PIN_JDQ1:
+			GPIO_X=JDQ1_PORT;
+			PIN_X=JDQ1_PIN;
+			break;
+		case ENUM_PIN_JDQ2:
+			GPIO_X=JDQ2_PORT;
+			PIN_X=JDQ2_PIN;
+			break;
+		case ENUM_PIN_JDQ3:
+			GPIO_X=JDQ3_PORT;
+			PIN_X=JDQ3_PIN;
+			break;
+		case ENUM_PIN_V1:
+			GPIO_X=V1_PORT;
+			PIN_X=V1_PIN;
+			break;
+		case ENUM_PIN_V2:
+			GPIO_X=V2_PORT;
+			PIN_X=V2_PIN;
+			break;
+		case ENUM_PIN_START_KEY:
+			GPIO_X=START_KEY_PORT;
+			PIN_X=START_KEY_PIN;
+			break;
+		case ENUM_PIN_MODE_KEY:
+			GPIO_X=MODE_KEY_PORT;
+			PIN_X=MODE_KEY_PIN;
+			break;
+		case ENUM_PIN_VALVE:
+			GPIO_X=VALVE_PORT;
+			PIN_X=VALVE_PIN;
+			break;
+		default:
+			break;
+	}
+	
 	if(b_open)
 	{
-		GPIO_ResetBits(LED_PORT,LED_PIN);
+		GPIO_SetBits(GPIO_X,PIN_X);
 	}
 	else
 	{
-		GPIO_SetBits(LED_PORT,LED_PIN);
+		GPIO_ResetBits(GPIO_X,PIN_X);
 	}
+//	GPIO_SetBits(GPIOC,GPIO_Pin_11);
 }
 
 /**************************************************************
@@ -128,60 +201,166 @@ void Init_BELL(void)
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;
 	GPIO_Init(BELL_PORT, &GPIO_InitStructure);
+	
+//	GPIO_ResetBits(BELL_PORT,BELL_PIN);
+////	GPIO_SetBits(BELL_PORT,BELL_PIN);
 }
 
 /**************************************************************
 * 设置BELL
 **************************************************************/
-void Set_BELL(BOOL b_open)
-{
-	if(b_open)
-	{
-		GPIO_ResetBits(BELL_PORT,BELL_PIN);
-	}
-	else
-	{
-		GPIO_SetBits(BELL_PORT,BELL_PIN);
-	}
-}
+//void Set_BELL(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(BELL_PORT,BELL_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(BELL_PORT,BELL_PIN);
+//	}
+//}
 
 /**************************************************************
-* 初始化STOP
+* 初始化STOP ,PA4
 **************************************************************/
 void Init_STOP(void)
 {
+	#ifdef INTERRUPT_3_KEYS
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	  /* Configure PA.04 pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = STOP_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(STOP_PORT, &GPIO_InitStructure);
+
+  /* Enable AFIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+  /* Connect EXTI0 Line to PA.04 pin */
+  GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource4);
+
+  /* Configure EXTI0 line */
+	EXTI_InitTypeDef EXTI_InitStructure; 
+  EXTI_InitStructure.EXTI_Line = EXTI_Line4;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+
+  /* Enable and set EXTI0 Interrupt to the lowest priority */
+	NVIC_InitTypeDef NVIC_InitStructure;
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	#else
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	
 	GPIO_InitStructure.GPIO_Pin = STOP_PIN;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;
 	GPIO_Init(STOP_PORT, &GPIO_InitStructure);
+	#endif
 }
 
 /**************************************************************
-* 初始化START
+* 初始化START,PA5
 **************************************************************/
 void Init_START(void)
 {
+	#ifdef INTERRUPT_3_KEYS
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	  /* Configure PA.04 pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = START_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(START_PORT, &GPIO_InitStructure);
+
+  /* Enable AFIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+  /* Connect EXTI0 Line to PA.05 pin */
+  GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource5);
+
+  /* Configure EXTI5 line */
+	EXTI_InitTypeDef EXTI_InitStructure; 
+  EXTI_InitStructure.EXTI_Line = EXTI_Line5;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+
+  /* Enable and set EXTI0 Interrupt to the lowest priority */
+	NVIC_InitTypeDef NVIC_InitStructure;
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	#else
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	
 	GPIO_InitStructure.GPIO_Pin = START_PIN;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;
 	GPIO_Init(START_PORT, &GPIO_InitStructure);
+	#endif	
 }
 
 /**************************************************************
-* 初始化NEXT
+* 初始化NEXT,PA6
 **************************************************************/
 void Init_NEXT(void)
 {
+#ifdef INTERRUPT_3_KEYS
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	  /* Configure PA.04 pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = NEXT_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(NEXT_PORT, &GPIO_InitStructure);
+
+  /* Enable AFIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+  /* Connect EXTI0 Line to PA.05 pin */
+  GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource6);
+
+  /* Configure EXTI5 line */
+	EXTI_InitTypeDef EXTI_InitStructure; 
+  EXTI_InitStructure.EXTI_Line = EXTI_Line6;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+
+  /* Enable and set EXTI0 Interrupt to the lowest priority */
+	NVIC_InitTypeDef NVIC_InitStructure;
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+#else
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	
 	GPIO_InitStructure.GPIO_Pin = NEXT_PIN;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;
 	GPIO_Init(NEXT_PORT, &GPIO_InitStructure);
+#endif
+}
+
+/**************************************************************
+* 初始化VALVE
+**************************************************************/
+void Init_VALVE()
+{
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	
+	GPIO_InitStructure.GPIO_Pin = VALVE_PIN;
+	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;
+	GPIO_Init(VALVE_PORT, &GPIO_InitStructure);
 }
 
 /**************************************************************
@@ -250,8 +429,8 @@ void Init_ADC1()
 
   /* ADC1 regular channel14 configuration */ 
   ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_55Cycles5);
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_55Cycles5);
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 1, ADC_SampleTime_55Cycles5);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 2, ADC_SampleTime_55Cycles5);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_55Cycles5);
 
   /* Enable ADC1 DMA */
   ADC_DMACmd(ADC1, ENABLE);
@@ -289,6 +468,92 @@ void Init_V1_V2(void)
 	GPIO_Init(V2_PORT, &GPIO_InitStructure);
 }
 
+void Init_I2C(void)
+{
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	
+	GPIO_InitStructure.GPIO_Pin = I2C_SDA_PIN;
+	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;
+	GPIO_Init(I2C_SDA_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = I2C_SCL_PIN;
+	GPIO_Init(I2C_SCL_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = RST_IO_PIN;
+	GPIO_Init(RST_IO_PORT, &GPIO_InitStructure);
+	
+	GPIO_ResetBits(RST_IO_PORT,RST_IO_PIN);
+	delay_ms(100);
+	GPIO_SetBits(RST_IO_PORT,RST_IO_PIN);
+}
+
+
+/**************************************************************
+* 设置V1,V2
+**************************************************************/
+//void Set_V1(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(V1_PORT,V1_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(V1_PORT,V1_PIN);
+//	}
+//}
+
+//void Set_V2(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(V2_PORT,V2_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(V2_PORT,V2_PIN);
+//	}
+//}
+
+
+/**************************************************************
+* 设置JDQ1,JDQ2,JDQ3
+**************************************************************/
+//void Set_JDQ1(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(JDQ1_PORT,JDQ1_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(JDQ1_PORT,JDQ1_PIN);
+//	}
+//}
+//void Set_JDQ2(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(JDQ2_PORT,JDQ2_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(JDQ2_PORT,JDQ2_PIN);
+//	}
+//}
+//void Set_JDQ3(BOOL b_open)
+//{
+//	if(b_open)
+//	{
+//		GPIO_SetBits(JDQ3_PORT,JDQ3_PIN);
+//	}
+//	else
+//	{
+//		GPIO_ResetBits(JDQ3_PORT,JDQ3_PIN);
+//	}
+//}
+
 /**************************************************************
 * 初始化Error LED
 **************************************************************/
@@ -316,43 +581,55 @@ void Init_LCD()
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_RD_PIN;
 	GPIO_Init(LCD_RD_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_RD_PORT,LCD_RD_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_WR_PIN;
 	GPIO_Init(LCD_WR_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_WR_PORT,LCD_WR_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_DC_PIN;
 	GPIO_Init(LCD_DC_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_DC_PORT,LCD_DC_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_CS_PIN;
 	GPIO_Init(LCD_CS_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_CS_PORT,LCD_CS_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_RESET_PIN;
 	GPIO_Init(LCD_RESET_PORT, &GPIO_InitStructure);
-	
+	GPIO_SetBits(LCD_RESET_PORT,LCD_RESET_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D0_PIN;
 	GPIO_Init(LCD_D0_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D0_PORT,LCD_D0_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D1_PIN;
 	GPIO_Init(LCD_D1_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D1_PORT,LCD_D1_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D2_PIN;
 	GPIO_Init(LCD_D2_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D2_PORT,LCD_D2_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D3_PIN;
 	GPIO_Init(LCD_D3_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D3_PORT,LCD_D3_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D4_PIN;
 	GPIO_Init(LCD_D4_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D4_PORT,LCD_D4_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D5_PIN;
 	GPIO_Init(LCD_D5_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D5_PORT,LCD_D5_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D6_PIN;
 	GPIO_Init(LCD_D6_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D6_PORT,LCD_D6_PIN);
 	
 	GPIO_InitStructure.GPIO_Pin = LCD_D7_PIN;
 	GPIO_Init(LCD_D7_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(LCD_D7_PORT,LCD_D7_PIN);
 }
 
 /**************************************************************
@@ -425,12 +702,15 @@ void init_hardware()
 	//打开TIM2,TIM3,TIM4时钟
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2|RCC_APB1Periph_TIM3|RCC_APB1Periph_TIM4,ENABLE);
 	
+	Init_I2C();
+	
   Init_LED();
 	Init_BELL();
-
+	
 	Init_STOP();
 	Init_START();
 	Init_NEXT();
+	Init_VALVE();
 	
 	Init_ADC1();
 	
@@ -438,12 +718,20 @@ void init_hardware()
 	
 	Init_Error_LED();
 	
-	Init_LCD();
-	
 	Init_JDQ();
 	Init_START_KEY();
 	Init_MODE_KEY();
 	
 	Init_UART_Comm_with_PCBA();
 	Init_Motor_PWM();
+	
+	Init_LCD();
+	init_lcd();
+	init_lang();
+	
+	
+//	Set_LED(0);
+//	Set_BELL(0);
+	Set_PIN(ENUM_PIN_LED,FALSE);
+	Set_PIN(ENUM_PIN_BELL,FALSE);
 }

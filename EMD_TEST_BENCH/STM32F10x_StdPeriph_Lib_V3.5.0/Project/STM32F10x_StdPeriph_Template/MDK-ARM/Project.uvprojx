@@ -573,6 +573,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -584,14 +589,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -617,6 +632,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1192,6 +1232,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1203,14 +1248,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1236,6 +1291,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1811,6 +1891,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1822,14 +1907,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1855,6 +1950,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2430,6 +2550,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2441,14 +2566,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2474,6 +2609,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3049,6 +3209,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3060,14 +3225,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3093,6 +3268,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3668,6 +3868,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3679,14 +3884,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3712,6 +3927,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4049,7 +4289,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\STM32F103RCT6\CMSIS;.\STM32F103RCT6\Lib\inc;.\STM32F103RCT6\User;.\STM32F103RCT6\Lib\src;.\STM32F103RCT6\App;.\STM32F103RCT6\Module;.\STM32F103RCT6\OS;.\STM32F103RCT6\Hardware;.\STM32F103RCT6\System\cmd;.\STM32F103RCT6\System\fifo;.\STM32F103RCT6\System;.\STM32F103RCT6\System\cmd</IncludePath>
+              <IncludePath>.\STM32F103RCT6\CMSIS;.\STM32F103RCT6\Lib\inc;.\STM32F103RCT6\User;.\STM32F103RCT6\Lib\src;.\STM32F103RCT6\App;.\STM32F103RCT6\Module;.\STM32F103RCT6\OS;.\STM32F103RCT6\Hardware;.\STM32F103RCT6\System\cmd;.\STM32F103RCT6\System\fifo;.\STM32F103RCT6\System;.\STM32F103RCT6\System\cmd;.\STM32F103RCT6\LANG</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4288,6 +4528,11 @@
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Hardware\i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Hardware\lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4299,14 +4544,24 @@
               <FilePath>.\STM32F103RCT6\App\app.c</FilePath>
             </File>
             <File>
-              <FileName>key_led_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\STM32F103RCT6\App\key_led_task.c</FilePath>
-            </File>
-            <File>
               <FileName>comm_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\App\comm_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>honeywell_sampling_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\honeywell_sampling_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>emd_pcb_test_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\emd_pcb_test_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_check_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\App\key_check_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4332,6 +4587,31 @@
               <FileName>protocol_module.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\STM32F103RCT6\Module\protocol_module.c</FilePath>
+            </File>
+            <File>
+              <FileName>display_module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\Module\display_module.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LANG</GroupName>
+          <Files>
+            <File>
+              <FileName>lang.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_chinese.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_chinese.c</FilePath>
+            </File>
+            <File>
+              <FileName>lang_english.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\STM32F103RCT6\LANG\lang_english.c</FilePath>
             </File>
           </Files>
         </Group>

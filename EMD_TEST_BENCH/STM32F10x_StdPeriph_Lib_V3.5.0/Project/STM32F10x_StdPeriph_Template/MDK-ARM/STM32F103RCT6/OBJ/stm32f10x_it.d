@@ -32,3 +32,4 @@
 .\stm32f103rct6\obj\stm32f10x_it.o: .\STM32F103RCT6\OS\os_core.h
 .\stm32f103rct6\obj\stm32f10x_it.o: .\STM32F103RCT6\Hardware\hardware.h
 .\stm32f103rct6\obj\stm32f10x_it.o: .\STM32F103RCT6\System\fifo\datatype.h
+.\stm32f103rct6\obj\stm32f10x_it.o: .\STM32F103RCT6\App\key_check_task.h

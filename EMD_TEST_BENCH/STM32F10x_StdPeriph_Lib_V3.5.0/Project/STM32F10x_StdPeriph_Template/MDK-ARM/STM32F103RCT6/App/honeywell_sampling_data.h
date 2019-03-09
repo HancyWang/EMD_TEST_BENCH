@@ -1,0 +1,30 @@
+#ifndef _HONEYWELL_SAMPLING_DATA
+#define _HONEYWELL_SAMPLING_DATA
+
+#include "datatype.h"
+
+
+//#define HONEYWELL_RATE			11185   //斜率
+#define HONEYWELL_RATE			9000
+#define PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT   0x80
+#define	PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT	0xB0
+#define PRESSURE_SAFETY_THRESHOLD 160   //0xA0表示10.0，对应十进制160
+//y=ax+b
+#define PRESSURE_SENSOR_VALUE(x) ((int16_t)(((PRESSURE_RATE)*(x))+zero_point_of_pressure_sensor))
+
+#define HONEYWELL_SAMPLING_DATA_PERIOD 10
+
+typedef enum 
+{
+	HONEYWELL_START,
+	HONEYWELL_NONE,
+//	HONEYWELL_WAIT_5ms,
+	HONEYWELL_READ_DATA,
+	HONEYWELL_SAMPLE_DATA_FINISH
+}HONEYWELL_STATE;
+
+void honeywell_sampling_data(void);
+UINT32 trans_xmmHg_2_adc_value(UINT8 xmmHg);
+#endif //_HONEYWELL_SAMPLING_DATA
+
+

@@ -21,9 +21,11 @@
 #include "fifo.h"
 #include "key_led_task.h"
 #include "protocol_module.h"
+#include "display_module.h"
+#include "lcd.h"
 
-//#include "i2c.h"
-//#include "Motor_pwm.h"
+#include "i2c.h"
+#include "Motor_pwm.h"
 //#include "stm32f0xx_pwr.h"
 //#include "stm32f0xx_exti.h"
 //#include "stm32f0xx_syscfg.h"
@@ -34,7 +36,7 @@
 #include "delay.h"
 //#include "comm_task.h"
 //#include "iwtdg.h"
-//#include "honeywell_sampling_data.h"
+#include "honeywell_sampling_data.h"
 /**********************************
 *宏定义
 ***********************************/
@@ -42,6 +44,30 @@
 #define BATTERY_LOW_POWER_THRESHOLD		3549  //3549对应2.6V
 //#define BATTERY_DIFF_VOLTAGE_NO_POWE 	819
 //#define BATTERY_DIFF_VOLTAGE_LOW_POWE 682
+
+#define BACK_ROW_COORD         47 
+#define BACK_COLUMN_COORD				20
+
+#define EEPROM_TITLE_ROW_COORD      190
+#define EEPROM_TITLE_COLUMN_COORD   100
+
+#define EEPROM_WARNING_ROW_COORD      150
+#define EEPROM_WARNING_COLUMN_COORD   20
+
+#define EEPROM_YES_ROW_COORD      BACK_ROW_COORD
+#define EEPROM_YES_COLUMN_COORD   BACK_COLUMN_COORD
+
+#define EEPROM_NO_ROW_COORD      EEPROM_YES_ROW_COORD
+#define EEPROM_NO_COLUMN_COORD   265
+/******************************************************
+*内部类型定义
+******************************************************/
+typedef enum{
+	EEPROM_START_ITEM = 0,
+	EEPROM_YES_ITEM,
+	EEPROM_NO_ITEM,
+	EEPROM_END_ITEM
+}EEPROM_ITEM_TYPE;
 /***********************************
 * 全局变量
 ***********************************/
@@ -49,53 +75,7 @@
 /***********************************
 * 局部变量
 ***********************************/
-//extern HONEYWELL_STATE honeywell_state;
-
-//extern uint32_t os_ticks;
-//extern CMD_Receive g_CmdReceive;  // 命令接收控制对象
-
-//extern FIFO_TYPE send_fifo;
-//extern uint8_t send_buf[SEND_BUF_LEN];
-//extern CHCKMODE_OUTPUT_PWM state;
-
-//extern PWM_STATE pwm1_state;
-//extern PWM_STATE pwm2_state;
-//extern PWM_STATE pwm3_state;
-
-//extern uint8_t led_high_cnt;
-//extern uint8_t led_low_cnt;
-//extern uint8_t vabirate_cnt;
-//extern BOOL b_vabirate;
-//extern BOOL b_check_BAT_ok;
-////KEY值，这里点按为确认蓝牙连接
-//typedef enum {
-//	NO_KEY,
-//	BLUE_CHECK
-//}KEY_VAL;
-
-//MCU_STATE mcu_state=POWER_OFF;
-////mcu_state=POWER_OFF;
-
-////extern uint8_t OUTPUT_FINISH;
-//BOOL b_Is_PCB_PowerOn=FALSE;
-////BOOL b_check_bat=FALSE;
-//volatile KEY_STATE key_state=KEY_UPING;
-
-//extern uint16_t RegularConvData_Tab[2];
-//extern uint8_t adc_state;
-////extern THERMAL_STATE thermal_state;
-
-//static uint8_t wakeup_Cnt;
-
-//LED_STATE led_state=LED_NONE;
-
-//extern uint8_t prev_mode;
-
-//extern BOOL b_getHoneywellZeroPoint;
-//extern uint32_t adc_pressure_value;
-//extern uint32_t HONEYWELL_ZERO_POINT;
-
-//extern uint16_t checkPressAgain_cnt;
+extern __IO uint16_t ADCConvertedValue[3];
 /***********************************
 * 局部函数
 ***********************************/
@@ -108,72 +88,71 @@
 ** 全局变量: 无
 ** 调用模块: 无
 *******************************************************************************/
-void CfgPA0ASWFI()
-{
-//	//时钟使能
-//	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA|RCC_AHBPeriph_GPIOB|RCC_AHBPeriph_GPIOF,ENABLE);  
-//	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);  
-//	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE); 
-//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG,ENABLE); 
-//	
-//	
-//	//外部按键GPIOA初始化,PA0  
-//	GPIO_InitTypeDef GPIO_InitStructure;  
-//	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_0;  
-//	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IN;  
-//	//GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_UP;
-//	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_NOPULL;
-//	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_2MHz;  
-//	GPIO_Init(GPIOA,&GPIO_InitStructure);  
-
-//	//将EXTI0指向PA0  
-//	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA,EXTI_PinSource0);  
-//	//EXTI0中断线配置
-//	EXTI_InitTypeDef EXTI_InitStructure;  
-//	EXTI_InitStructure.EXTI_Line=EXTI_Line0;  
-//	EXTI_InitStructure.EXTI_Mode=EXTI_Mode_Interrupt;  
-//	EXTI_InitStructure.EXTI_Trigger=EXTI_Trigger_Falling;  
-//	EXTI_InitStructure.EXTI_LineCmd=ENABLE;  
-//	EXTI_Init(&EXTI_InitStructure);  
-
-//	//EXTI0中断向量配置  
-//	NVIC_InitTypeDef NVIC_InitStructure;  
-//	NVIC_InitStructure.NVIC_IRQChannel=EXTI0_1_IRQn;  
-//	NVIC_InitStructure.NVIC_IRQChannelPriority=0x01;  
-//	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;  
-//	NVIC_Init(&NVIC_InitStructure);  
-}
-
-
 //LED_STATE led_state=LED_ON;
 int test=0;
 BOOL b_flag=0;
 
 void key_led_task(void)
 {
-//	if(led_state==LED_OFF)
-//	{
-//		if(test==50)
-//		{
-//			test=0;
-//			led_state=LED_ON;
-//		}
-//		else
-//		{
-//			test++;
-//			Set_LED(0);
-//		}
-//	}
+	//功能验证
+//	Set_V1(0);
+//	Set_V2(0);
+//	
+//	Set_JDQ1(1);
+//	Set_JDQ2(0);
+//	
+//	Motor_PWM_Freq_Dudy_Set(1,100,50);
 	
-	b_flag=!b_flag;
-	if(b_flag)
+	
+	
+	set_lcd_backlight(1);
+////	display_module_show_char(220,255+8,16,0%100/10+'0',0,BLUE);
+////	LCD_CtrlWrite_Color(RED);
+////	lcd_draw_rect_real(0,0,63,239,BLUE);
+	lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
+//	lcd_draw_rect_real(0,0,239,319,WHITE);
+//	display_module_show_char(0,0,24,'A',0,WHITE);
+//	display_module_show_char(0+16,0,24,'B',0,WHITE);
+	display_module_show_string(15, 20,24,"Sensor:",0,WHITE);
+	display_module_show_string(150, 20,24,"TESTING",0,YELLOW);
+	for(int i=0;i<10;i++)
 	{
-		Set_LED(0);
+		delay_ms(1000);
 	}
-	else
-	{
-		Set_LED(1);
-	}
+	display_module_show_string(150, 20,24,"PASS   ",0,GREEN);
+
+//	display_module_clear();
+//	display_module_show_lang(181,50,24,0,WHITE);
+//	
+//	for(int i=0;i<10;i++)
+//	{
+//		Set_BELL(1);
+//	delay_us(1000000);
+//	Set_BELL(0);
+//	delay_us(1000000);
+//	}
+//	
+	
+//	b_flag=!b_flag;
+//	if(b_flag)
+//	{
+//		Set_LED(0);
+//		Set_BELL(0);
+////		display_module_show_lang(EEPROM_NO_ROW_COORD, EEPROM_NO_COLUMN_COORD,24, NO_INDEX, WHITE);
+////		display_module_show_lang(150 - 27 + 3,40+12*3,24, HAVE_NO_ALARM_INDEX, WHITE);
+////		display_module_show_lang(186, 81,24, TIME_SET_INDEX, WHITE);
+//		Motor_PWM_Freq_Dudy_Set(1,100,50);
+//		set_lcd_backlight(1);
+//		Init_honeywell_sensor();
+//	}
+//	else
+//	{
+//		Set_LED(1);
+//		Set_BELL(1);
+////		set_lcd_backlight(0);
+//		set_lcd_backlight(0);
+//		Motor_PWM_Freq_Dudy_Set(1,100,0);
+//	}
 	
 
 	//IWDG_Feed();   //喂狗

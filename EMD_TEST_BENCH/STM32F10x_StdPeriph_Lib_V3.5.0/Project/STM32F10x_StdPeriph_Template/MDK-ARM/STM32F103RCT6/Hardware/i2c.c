@@ -34,10 +34,10 @@ void I2C_SDA_IN(void)
 {
 	GPIO_InitTypeDef   GPIO_uInitStructure;
 	
-	GPIO_uInitStructure.GPIO_Pin = I2C_SCL_PIN;
-	GPIO_uInitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
+	GPIO_uInitStructure.GPIO_Pin = I2C_SDA_PIN;
+	GPIO_uInitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_uInitStructure.GPIO_Speed = GPIO_Speed_10MHz;  // 10M
-	GPIO_Init(I2C_SCL_PORT,&GPIO_uInitStructure);
+	GPIO_Init(I2C_SDA_PORT,&GPIO_uInitStructure);
 }
 
 void I2C_Start(void)
@@ -149,6 +149,7 @@ INT8U I2C_RecByte(void)
     Delay_us(5);
   }
   return dat;
+
 }
 
 

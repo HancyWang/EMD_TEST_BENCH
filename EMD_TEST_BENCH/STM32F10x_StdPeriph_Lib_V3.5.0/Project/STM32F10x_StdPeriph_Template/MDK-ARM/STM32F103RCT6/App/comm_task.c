@@ -14,22 +14,9 @@
 #include "key_led_task.h"
 //#include "Motor_pwm.h"
 //#include "i2c.h"
-#include "key_led_task.h"
+//#include "key_led_task.h"
 #include "hardware.h"
 //#include "iwtdg.h"
-
-////#define HONEYWELL_RATE			11110   //斜率
-////extern uint32_t HONEYWELL_ZERO_POINT;
-////extern uint32_t trans_xmmHg_2_adc_value(uint8_t xmmHg);
-////extern BOOL b_getHoneywellZeroPoint;
-
-////#define PRESSURE_RATE 70
-////#define PRESSURE_RATE (FlashReadWord(FLASH_PRESSURE_RATE_ADDR))
-//uint16_t PRESSURE_RATE;
-
-//#define PRESSURE_SAFETY_THRESHOLD 160   //0xA0表示10.0，对应十进制160
-////y=ax+b
-//#define PRESSURE_SENSOR_VALUE(x) ((int16_t)(((PRESSURE_RATE)*(x))+zero_point_of_pressure_sensor))
 
 
 //全局变量
@@ -218,10 +205,9 @@ void TaskDataSend (void)
 		if(len)
 		{
 				UartSendNBytes(send_data_buf, len);
-				delay_ms(30);
+//				delay_ms(30);
 		}
 
-		
 		os_delay_ms(SEND_TASK_ID, 30);  //mark一下
 		//os_delay_ms(SEND_TASK_ID, 28);
 }
@@ -270,6 +256,6 @@ void CMD_ProcessTask (void)
 	ModuleUnPackFrame();//命令处理
 
 	
-	os_delay_ms(RECEIVE_TASK_ID, 100);
+	os_delay_ms(RECEIVE_TASK_ID, 200);
 	//os_delay_ms(RECEIVE_TASK_ID, 300);
 }

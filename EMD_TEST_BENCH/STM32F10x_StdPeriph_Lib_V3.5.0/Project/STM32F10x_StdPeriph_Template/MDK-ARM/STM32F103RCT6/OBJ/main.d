@@ -34,3 +34,4 @@
 .\stm32f103rct6\obj\main.o: .\STM32F103RCT6\OS\os_core.h
 .\stm32f103rct6\obj\main.o: .\STM32F103RCT6\App\app.h
 .\stm32f103rct6\obj\main.o: .\STM32F103RCT6\OS\os_cfg.h
+.\stm32f103rct6\obj\main.o: .\STM32F103RCT6\App\comm_task.h

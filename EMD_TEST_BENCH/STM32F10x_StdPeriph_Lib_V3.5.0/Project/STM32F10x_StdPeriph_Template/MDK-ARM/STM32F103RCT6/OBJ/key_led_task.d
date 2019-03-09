@@ -36,4 +36,11 @@
 .\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\System\fifo\fifo.h
 .\stm32f103rct6\obj\key_led_task.o: STM32F103RCT6\App\key_led_task.h
 .\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\Module\protocol_module.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\Module\display_module.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\LANG\lang.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\Hardware\lcd.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\Hardware\i2c.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\App\common.h
+.\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\Hardware\Motor_pwm.h
 .\stm32f103rct6\obj\key_led_task.o: .\STM32F103RCT6\System\delay.h
+.\stm32f103rct6\obj\key_led_task.o: STM32F103RCT6\App\honeywell_sampling_data.h

@@ -3,11 +3,11 @@
 
 #include "common.h"
 
-#define SCL_L          		      GPIOA->BRR  = GPIO_Pin_9
-#define SCL_H          		      GPIOA->BSRR = GPIO_Pin_9
-#define SDA_L          		      GPIOA->BRR  = GPIO_Pin_10
-#define SDA_H          		      GPIOA->BSRR = GPIO_Pin_10
-#define SDA_READ                (GPIOA->IDR &  GPIO_Pin_10) >> 10
+#define SCL_L          		      GPIOB->BRR  = GPIO_Pin_9
+#define SCL_H          		      GPIOB->BSRR = GPIO_Pin_9
+#define SDA_L          		      GPIOB->BRR  = GPIO_Pin_8
+#define SDA_H          		      GPIOB->BSRR = GPIO_Pin_8
+#define SDA_READ                (GPIOB->IDR &  GPIO_Pin_8) >> 8
 
 extern void I2C_uConfiguration(void);
 /*

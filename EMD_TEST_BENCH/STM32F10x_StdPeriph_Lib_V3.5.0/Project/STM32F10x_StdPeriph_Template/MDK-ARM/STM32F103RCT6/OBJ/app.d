@@ -34,4 +34,6 @@
 .\stm32f103rct6\obj\app.o: .\STM32F103RCT6\System\fifo\datatype.h
 .\stm32f103rct6\obj\app.o: STM32F103RCT6\App\comm_task.h
 .\stm32f103rct6\obj\app.o: .\STM32F103RCT6\Hardware\hardware.h
-.\stm32f103rct6\obj\app.o: STM32F103RCT6\App\key_led_task.h
+.\stm32f103rct6\obj\app.o: STM32F103RCT6\App\honeywell_sampling_data.h
+.\stm32f103rct6\obj\app.o: STM32F103RCT6\App\emd_pcb_test_task.h
+.\stm32f103rct6\obj\app.o: STM32F103RCT6\App\key_check_task.h

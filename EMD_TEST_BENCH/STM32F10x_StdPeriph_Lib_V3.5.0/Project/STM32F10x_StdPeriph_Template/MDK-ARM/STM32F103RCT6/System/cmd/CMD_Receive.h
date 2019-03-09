@@ -14,10 +14,15 @@
 *******************************************************************************/
 #include <DataType.h>
 
+//typedef enum
+//{
+//	BUF1_LENGTH = 64,
+//	BUF2_LENGTH = 64
+//}BUF_LENGTH;
 typedef enum
 {
-	BUF1_LENGTH = 64,
-	BUF2_LENGTH = 64
+	BUF1_LENGTH = 260,
+	BUF2_LENGTH = 260
 }BUF_LENGTH;
 
 typedef struct

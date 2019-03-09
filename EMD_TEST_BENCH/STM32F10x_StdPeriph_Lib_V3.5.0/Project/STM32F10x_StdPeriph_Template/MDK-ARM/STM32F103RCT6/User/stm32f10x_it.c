@@ -25,7 +25,7 @@
 #include "stm32f10x_it.h"
 #include "os_core.h"
 #include "hardware.h"
-
+#include "key_check_task.h"
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -167,5 +167,76 @@ void TIM2_IRQHandler(void)
     TIM_ClearITPendingBit(TIM2,TIM_FLAG_Update);
   }
 }
+
+#ifdef INTERRUPT_3_KEYS
+void EXTI4_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(EXTI_Line4)!=RESET)  
+	{ 
+		if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4))
+		{
+			b_stopKey_falling=TRUE;
+			p_b_KeyFalling=&b_stopKey_falling;
+			p_b_KeyFalled=&b_stopKey_falled;	
+			p_KeyFallingCnt=&stopKey_falling_cnt;
+			p_b_KeyRaised=&b_stopKey_pressed;
+		}
+		else
+		{
+			b_stopKey_raising=TRUE;
+			p_b_KeyRaising=&b_stopKey_raising;
+			p_b_KeyRaised=&b_stopKey_raised;
+			p_KeyRaisingCnt=&stopKey_raising_cnt;
+		}
+	}  
+	EXTI_ClearITPendingBit(EXTI_Line4);
+//	EXTI_ClearFlag(EXTI_Line4);
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(EXTI_Line5)!=RESET)  
+	{ 
+		if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_5))
+		{
+			b_startKey_falling=TRUE;
+			p_b_KeyFalling=&b_startKey_falling;
+			p_b_KeyFalled=&b_startKey_falled;	
+			p_KeyFallingCnt=&startKey_falling_cnt;
+			p_b_KeyRaised=&b_startKey_pressed;
+		}
+		else
+		{
+			b_startKey_raising=TRUE;
+			p_b_KeyRaising=&b_startKey_raising;
+			p_b_KeyRaised=&b_startKey_raised;
+			p_KeyRaisingCnt=&startKey_raising_cnt;
+		}
+	}  
+	else if(EXTI_GetITStatus(EXTI_Line6)!=RESET)
+	{
+		if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_6))
+		{
+			b_nextKey_falling=TRUE;
+			p_b_KeyFalling=&b_nextKey_falling;
+			p_b_KeyFalled=&b_nextKey_falled;	
+			p_KeyFallingCnt=&nextKey_falling_cnt;
+			p_b_KeyRaised=&b_nextKey_pressed;
+		}
+		else
+		{
+			b_nextKey_raising=TRUE;
+			p_b_KeyRaising=&b_nextKey_raising;
+			p_b_KeyRaised=&b_nextKey_raised;
+			p_KeyRaisingCnt=&nextKey_raising_cnt;
+		}
+	}
+	
+	EXTI_ClearITPendingBit(EXTI_Line5);
+	EXTI_ClearITPendingBit(EXTI_Line6);
+//	EXTI_ClearFlag(EXTI_Line5);
+//	EXTI_ClearFlag(EXTI_Line6);
+}
+#endif
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
