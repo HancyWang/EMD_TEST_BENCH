@@ -61,6 +61,7 @@
 typedef enum
 {
 	PROMT_CHECK_FAIL,
+	PROMT_CHECK_START,
 	PROMT_CHECK_SLEEP_CURRENT,
 	PROMT_CHECK_SLEEP_CURRENT_Y,
 	PROMT_CHECK_SLEEP_CURRENT_N,
@@ -145,7 +146,7 @@ uint32_t prev_08mmHg_os_tick;
 BOOL _10mmHg_timing_flag=TRUE;
 uint32_t prev_10mmHg_os_tick;
 
-EMD_PCB_TEST_STATUS EMD_check_status=EMD_CHECK_START;
+EMD_PCB_TEST_STATUS EMD_check_status=EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION;
 //EMD_PCB_TEST_STATUS EMD_check_status=EMD_CHECK_NONE;
 
 BOOL b_get_sw_version_success=FALSE;
@@ -274,7 +275,21 @@ void LCD_show_promt_info(PROMT_INFO info)
 			
 	switch(promt_info)
 	{
+		case PROMT_CHECK_START:
+			set_lcd_backlight(1);
+//			lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
+		
+			lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
+			display_module_show_string(0, 60,24,"START TESTINT...",0,YELLOW);
+			display_module_show_string(0, 120,16,"1.Please put the to be tested",0,YELLOW);
+			display_module_show_string(0, 120+16+3,16,"EMD PCBA on the nest.",0,YELLOW);
+			display_module_show_string(0, 120+(16+3)*2+15,16,"2.Please stress the test pin",0,YELLOW);
+			display_module_show_string(0, 120+(16+3)*3+15,16,"to connect the PCBA.",0,YELLOW);
+//			display_module_show_string(0, 100+16+3,16,"Put new PCBA",0,YELLOW);
+			display_module_show_string(0, 290,24,"Start",0,YELLOW);
+			break;
 		case PROMT_CHECK_SLEEP_CURRENT:
+			lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
 			display_module_show_string(0, 5+(16+3)*ITEM_SLEEP_CURRENT,16,"1.Sleep current <40uA?",0,WHITE);
 			display_module_show_string(0, 260,16,"The current meter value<40uA?",0,YELLOW);
 	
@@ -421,13 +436,14 @@ void LCD_show_promt_info(PROMT_INFO info)
 		case PROMT_CHECK_FAIL:
 			display_module_show_string(80,248,40,"FAIL",0,RED);
 			display_module_show_string(0, 290,24,"Start",0,YELLOW);
-		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
+//		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 			beep();
 			break;
 		case PROMT_CHECK_FINISH:
 			display_module_show_string(80,248,40,"PASS",0,GREEN);
-			display_module_show_string(0, 290,24,"Start",0,YELLOW);
-		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
+//			display_module_show_string(0, 290,24,"Start",0,YELLOW);
+			display_module_show_string(0, 290,24,"End",0,YELLOW);
+//		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 			beep();
 			break;
 		default:
@@ -636,6 +652,21 @@ void EMD_PCB_test_task(void)
 ////	}
 #endif
 	
+	if(EMD_check_status==EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION)
+	{
+		LCD_show_promt_info(PROMT_CHECK_START);
+		EMD_check_status=EMD_CHECK_PREV_START;
+	}
+	
+	if(EMD_check_status==EMD_CHECK_PREV_START)
+	{
+		if(b_startKey_pressed)
+		{
+			EMD_check_status=EMD_CHECK_START;
+		}
+	}
+	
+	
 	//0.Start checking...
 	if(EMD_check_status==EMD_CHECK_START)
 	{		 
@@ -645,8 +676,8 @@ void EMD_PCB_test_task(void)
 		
 		EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
 
-		set_lcd_backlight(1);
-		lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
+//		set_lcd_backlight(1);
+//		lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
 		
 		LCD_show_promt_info(PROMT_CHECK_SLEEP_CURRENT);
 		LCD_show_promt_info(PROMT_YES_NO);
@@ -1108,6 +1139,7 @@ void EMD_PCB_test_task(void)
 			
 			EMD_check_status=EMD_CHECK_FINISHED;
 			LCD_show_promt_info(PROMT_CHECK_FINISH); 
+			EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 		}
 		else if(b_stopKey_pressed)
 		{
@@ -1117,6 +1149,7 @@ void EMD_PCB_test_task(void)
 			
 			EMD_check_status=EMD_CHECK_FAIL;
 			LCD_show_promt_info(PROMT_CHECK_FAIL);
+			EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 		}
 		else
 		{
@@ -1132,7 +1165,9 @@ void EMD_PCB_test_task(void)
 			shut_down_EMD_PCBA();
 			
 			Init_all_keys();
-			EMD_check_status=EMD_CHECK_START;
+//			EMD_check_status=EMD_CHECK_START;
+			EMD_check_status=EMD_CHECK_PREV_START;
+			LCD_show_promt_info(PROMT_CHECK_START);
 		}
 	}
 	

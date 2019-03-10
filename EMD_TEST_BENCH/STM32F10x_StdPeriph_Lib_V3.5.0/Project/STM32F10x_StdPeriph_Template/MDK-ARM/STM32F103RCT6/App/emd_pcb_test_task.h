@@ -15,6 +15,8 @@
 typedef enum
 {
 	EMD_CHECK_NONE,
+	EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION,
+	EMD_CHECK_PREV_START,
 	EMD_CHECK_START,                     						//start checking 
 	EMD_CHECK_SLEEP_CURRENT,												//check EMD sleep current
 	EMD_CHECK_SW_VERSION,     											//check software version,the current ver. is 1.1.0       

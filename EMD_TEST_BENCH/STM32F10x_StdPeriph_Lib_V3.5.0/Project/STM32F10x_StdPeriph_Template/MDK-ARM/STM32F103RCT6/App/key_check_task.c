@@ -292,7 +292,9 @@ void key_check_task(void)
 	}
 	
 	
-	if(EMD_check_status==EMD_CHECK_FAIL||EMD_check_status==EMD_CHECK_FINISHED)
+	if(EMD_check_status==EMD_CHECK_FAIL||
+			EMD_check_status==EMD_CHECK_FINISHED||
+			EMD_check_status==EMD_CHECK_PREV_START)
 	{
 		//PA5 start
 		if(KeySTART_state==KEY_NONE)
