@@ -97,6 +97,7 @@ typedef enum
 	PROMT_CHECK_MODE_KEY,
 	PROMT_CHECK_MODE_KEY_Y,
 	PROMT_CHECK_MODE_KEY_N,
+	PROMT_YES_NO,
 	PROMT_CHECK_FINISH
 }PROMT_INFO;
 
@@ -261,6 +262,16 @@ void beep()
 void LCD_show_promt_info(PROMT_INFO info)
 {
 	int promt_info=(int)info;
+	if(promt_info==PROMT_YES_NO)
+	{
+		display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+		display_module_show_string(200, 290,24,"No",0,YELLOW);
+	}
+	else
+	{
+		lcd_draw_rect_real(0,230,239,319,BACK_COLOR);   //clear promt show area
+	}
+			
 	switch(promt_info)
 	{
 		case PROMT_CHECK_SLEEP_CURRENT:
@@ -268,8 +279,8 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 260,16,"The current meter value<40uA?",0,YELLOW);
 	
 			beep();
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			break;
 		case PROMT_CHECK_DC_DC:
 			display_module_show_string(0, 5+(16+3)*ITEM_DC_DC,16,"2.DC/DC works ok?",0,WHITE);
@@ -290,49 +301,49 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 5+(16+3)*ITEM_10mmHg,16,"7.10mmHg trigger ok?",0,WHITE);
 		
 			display_module_show_string(0, 260,16,"Solid yellow and vibration?",0,YELLOW);
-			delay_ms(1500);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+////			delay_ms(1500);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_GREATER_THAN_2_6V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_6V,16,"8.Work ok on Vb>2.6V?",0,WHITE);
 		
-			display_module_show_string(0, 260,16,"LED solid green?",0,YELLOW);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			display_module_show_string(0, 260,16,"LED solid green?Vibaration?",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_BETWEEN_2_45_AND_2_6V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_45_AND_2_6V,16,"9.Work ok on 2.45V<Vb<2.6V?",0,WHITE);
 		
 			display_module_show_string(0, 260,16,"Flash yellow then turn green?",0,YELLOW);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_LESS_THAN_2_45V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_45V,16,"10.Work ok on Vb<2.45V?",0,WHITE);
 		
 			display_module_show_string(0, 260,16,"Solid yellow and vibration?",0,YELLOW);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_POWER_ON_KEY:
 			display_module_show_string(0, 5+(16+3)*ITEM_POWER_ON_KEY,16,"11.Manual power on/off ok?",0,WHITE);
 		
 			display_module_show_string(0, 260,16,"Manual power on/off ok?",0,YELLOW);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_MODE_KEY:
 			display_module_show_string(0, 5+(16+3)*ITEM_MODE_KEY,16,"12.Manual choose mode ok?",0,WHITE);
 			
 			display_module_show_string(0, 260,16,"Manual choose mode ok?",0,YELLOW);
-			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-			display_module_show_string(200, 290,24,"No",0,YELLOW);
+//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
+//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_SLEEP_CURRENT_Y:
@@ -423,8 +434,6 @@ void LCD_show_promt_info(PROMT_INFO info)
 			break;
 	}
 }
-
-
 
 #if 0
 //BOOL Is_the_key_pressed(KEY_NUM num)
@@ -640,6 +649,7 @@ void EMD_PCB_test_task(void)
 		lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
 		
 		LCD_show_promt_info(PROMT_CHECK_SLEEP_CURRENT);
+		LCD_show_promt_info(PROMT_YES_NO);
 		
 		EMD_PCB_operate_on(EMD_OP_SUPPLY_3_0_V); 								//power on EMD PCBA
 		EMD_PCB_operate_on(EMD_OP_START_TEST_SLEEP_CURRENT);		//start test sleep current when Vbat=3.0V
@@ -655,7 +665,7 @@ void EMD_PCB_test_task(void)
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_SLEEP_CURRENT_Y); //show sleep current test "Y"
 			
 			EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);  
@@ -669,7 +679,6 @@ void EMD_PCB_test_task(void)
 		{
 			Init_all_keys();
 			
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
 			LCD_show_promt_info(PROMT_CHECK_SLEEP_CURRENT_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -846,11 +855,14 @@ void EMD_PCB_test_task(void)
 		}
 		else
 		{
-//			static uint32_t _08mmHg;
-//			static uint32_t _10mmHg;
-//			_08mmHg=trans_xmmHg_2_adc_value(default_parameter_buf[0]);
-//			_10mmHg=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD);
+			static uint32_t _08mmHg;
+			static uint32_t _10mmHg;
+			_08mmHg=trans_xmmHg_2_adc_value(default_parameter_buf[0]);
+			_10mmHg=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD);
+			
+			
 			//if(b_getHoneywellZeroPoint)
+			if(adc_pressure_value<0x00F00000) //983,040(0F0000) about 58mmHg
 			{
 				if(adc_pressure_value>=trans_xmmHg_2_adc_value(default_parameter_buf[0])
 				&&adc_pressure_value<=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD))
@@ -861,12 +873,12 @@ void EMD_PCB_test_task(void)
 					EMD_check_status=EMD_CHECK_10mmHg;
 //					LCD_show_promt_info(PROMT_CHECK_10mmHg);
 					
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,50);
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,46);
 				}
 			}
 		}
 	}
-	//7. check 10mmHg
+	//7.1 check 10mmHg
 	if(EMD_check_status==EMD_CHECK_10mmHg)
 	{
 		if(Is_timing_Xmillisec(5000,TIMEOUT_10mmHg))   
@@ -874,7 +886,7 @@ void EMD_PCB_test_task(void)
 			Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_FAIL);
 			LCD_show_promt_info(PROMT_CHECK_10mmHg_N);
 		}
@@ -885,24 +897,32 @@ void EMD_PCB_test_task(void)
 				if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT))
 				{
 					b_show_10mmHg=TRUE;
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 					LCD_show_promt_info(PROMT_CHECK_10mmHg);
-//					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
+//					LCD_show_promt_info(PROMT_YES_NO);
+
 //					delay_ms(500);
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,50);
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,20);
 				}
 			}
 			
 			if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
 			{
-				EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
-				
 				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
+				delay_ms(800);                                       //It's depend on the real gas pipe
+				
+				EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
+				for(int i=0;i<5;i++)
+				{
+					delay_ms(1000);
+				}
+				LCD_show_promt_info(PROMT_YES_NO);
 				b_reach_10mmHg=TRUE;
 				EMD_check_status=EMD_CHECK_KEY_PRESSED_AFTER_10mmHg;
 			}
 		}
 	}
-	
+	//7.2
 	if(EMD_check_status==EMD_CHECK_KEY_PRESSED_AFTER_10mmHg)
 	{
 		if(b_nextKey_pressed)
@@ -912,18 +932,19 @@ void EMD_PCB_test_task(void)
 			LCD_show_promt_info(PROMT_CHECK_10mmHg_Y);
 			
 			LCD_show_promt_info(PROMT_CHECK_GREATER_THAN_2_6V);		
+			re_power_on_EMD_PCBA();
+			delay_ms(1000);
+			LCD_show_promt_info(PROMT_YES_NO);
+			
 			EMD_check_status=EMD_CHECK_BAT_GREATER_THAN_2_6V;
 			
 			EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
 			EMD_PCB_operate_on(EMD_OP_SUPPLY_3_0_V);         //supply 3.0V to EMD PCBA
-			
-			re_power_on_EMD_PCBA();
-
 		}
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_10mmHg_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -931,13 +952,15 @@ void EMD_PCB_test_task(void)
 		}
 	}
 	
+	//8.check Vbat>2.6V
 	if(EMD_check_status==EMD_CHECK_BAT_GREATER_THAN_2_6V)
 	{
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_GREATER_THAN_2_6V_Y); 
+			
 			#if 0
 //			EMD_PCB_operate_on(EMD_OP_PRESS_POWER_BUTTON);   //power off the EMD PCBA
 //			shut_down_EMD_PCBA();
@@ -952,11 +975,16 @@ void EMD_PCB_test_task(void)
 			
 			EMD_check_status=EMD_CHECK_BAT_BETWEEN_2_45_AND_2_6V;
 			LCD_show_promt_info(PROMT_CHECK_BETWEEN_2_45_AND_2_6V); 
+			for(int i=0;i<3;i++)
+			{
+				delay_ms(1000);
+			}
+			LCD_show_promt_info(PROMT_YES_NO);
 		}
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_GREATER_THAN_2_6V_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -968,24 +996,31 @@ void EMD_PCB_test_task(void)
 		}
 	}
 	
+	//9.check 2.45V<Vbat<2.6V
 	if(EMD_check_status==EMD_CHECK_BAT_BETWEEN_2_45_AND_2_6V)
 	{
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_BETWEEN_2_45_AND_2_6V_Y); 
+			
 
 			EMD_PCB_operate_on(EMD_OP_SUPPLY_2_2_V); 
 			re_power_on_EMD_PCBA();
 			
 			EMD_check_status=EMD_CHECK_BAT_LESS_THAN_2_45V;
 			LCD_show_promt_info(PROMT_CHECK_LESS_THAN_2_45V); 
+			for(int i=0;i<5;i++)
+			{
+				delay_ms(1000);
+			}
+			LCD_show_promt_info(PROMT_YES_NO);
 		}
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_BETWEEN_2_45_AND_2_6V_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -997,26 +1032,31 @@ void EMD_PCB_test_task(void)
 		}
 	}
 	
+	//10.check Vbat<2.45V
 	if(EMD_check_status==EMD_CHECK_BAT_LESS_THAN_2_45V)
 	{
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_LESS_THAN_2_45V_Y); 
 			
+			
 			EMD_PCB_operate_on(EMD_OP_SUPPLY_3_0_V);
+			
+			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY); 
+//			re_power_on_EMD_PCBA();
 			shut_down_EMD_PCBA();
 			Set_PIN(ENUM_PIN_JDQ2,FALSE);
 			delay_ms(1000);
+			LCD_show_promt_info(PROMT_YES_NO);	
 			
 			EMD_check_status=EMD_CHECK_POWER_ON_KEY;
-			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY); 
 		}
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_LESS_THAN_2_45V_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -1028,23 +1068,25 @@ void EMD_PCB_test_task(void)
 		}
 	}
 	
+	//11.check power_on key
 	if(EMD_check_status==EMD_CHECK_POWER_ON_KEY)
 	{
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY_Y); 
 			
 			re_power_on_EMD_PCBA();
 			
 			EMD_check_status=EMD_CHECK_MODE_KEY;
 			LCD_show_promt_info(PROMT_CHECK_MODE_KEY); 
+			LCD_show_promt_info(PROMT_YES_NO);
 		}
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -1055,13 +1097,13 @@ void EMD_PCB_test_task(void)
 			//do nothing
 		}
 	}
-	
+	//12.check mode key
 	if(EMD_check_status==EMD_CHECK_MODE_KEY)
 	{
 		if(b_nextKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);     // clear "Yes" "No"
+
 			LCD_show_promt_info(PROMT_CHECK_MODE_KEY_Y); 
 			
 			EMD_check_status=EMD_CHECK_FINISHED;
@@ -1070,7 +1112,7 @@ void EMD_PCB_test_task(void)
 		else if(b_stopKey_pressed)
 		{
 			Init_all_keys();
-			lcd_draw_rect_real(0,260,239,319,BACK_COLOR);
+
 			LCD_show_promt_info(PROMT_CHECK_MODE_KEY_N);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
@@ -1081,7 +1123,7 @@ void EMD_PCB_test_task(void)
 			//do nothing
 		}
 	}
-	
+	//fail or finished(successful)
 	if(EMD_check_status==EMD_CHECK_FAIL||EMD_check_status==EMD_CHECK_FINISHED)
 	{
 		if(b_startKey_pressed)

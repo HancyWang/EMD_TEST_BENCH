@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\STM32F103RCT6\OBJ\STM32103RCT6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\STM32F103RCT6\OBJ\STM32103RCT6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Mar 09 22:14:00 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sun Mar 10 15:23:13 2019
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -421,8 +421,8 @@ Global Symbols
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
-<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1738 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = EMD_PCB_test_task &rArr; LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
+<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1590 bytes, Stack size 16 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = EMD_PCB_test_task &rArr; LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_get_sw_version
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
@@ -842,13 +842,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
-<P><STRONG><a name="[54]"></a>LCD_show_promt_info</STRONG> (Thumb, 2116 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
+<P><STRONG><a name="[54]"></a>LCD_show_promt_info</STRONG> (Thumb, 1856 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_module_show_string
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rect_real
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
@@ -1128,7 +1128,6 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModuleUnPackFrame
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
@@ -1303,7 +1302,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_ctrl_write_color
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_crtl_write_area
 </UL>
-<BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
+<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
+<LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
