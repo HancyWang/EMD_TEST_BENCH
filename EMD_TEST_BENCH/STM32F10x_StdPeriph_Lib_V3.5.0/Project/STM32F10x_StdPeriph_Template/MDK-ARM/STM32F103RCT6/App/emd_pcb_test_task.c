@@ -174,6 +174,7 @@ extern BOOL b_getHoneywellZeroPoint;
 //定义字符串
 unsigned char str_Y[]="Y";
 unsigned char str_N[]="N";
+unsigned char str_VERSION[]="V1.0.0";
 
 /***********************************
 * 局部变量
@@ -251,6 +252,8 @@ void shut_down_EMD_PCBA()
 {
 	Set_PIN(ENUM_PIN_JDQ2,TRUE);
 	delay_ms(500);
+	Set_PIN(ENUM_PIN_JDQ2,FALSE);
+	delay_ms(500);
 }
 
 void beep()
@@ -280,12 +283,12 @@ void LCD_show_promt_info(PROMT_INFO info)
 //			lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
 		
 			lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
+			display_module_show_string(180, 0,16,str_VERSION,0,YELLOW);
 			display_module_show_string(0, 60,24,"START TESTINT...",0,YELLOW);
 			display_module_show_string(0, 120,16,"1.Please put the to be tested",0,YELLOW);
 			display_module_show_string(0, 120+16+3,16,"EMD PCBA on the nest.",0,YELLOW);
 			display_module_show_string(0, 120+(16+3)*2+15,16,"2.Please stress the test pin",0,YELLOW);
 			display_module_show_string(0, 120+(16+3)*3+15,16,"to connect the PCBA.",0,YELLOW);
-//			display_module_show_string(0, 100+16+3,16,"Put new PCBA",0,YELLOW);
 			display_module_show_string(0, 290,24,"Start",0,YELLOW);
 			break;
 		case PROMT_CHECK_SLEEP_CURRENT:
@@ -294,8 +297,6 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 260,16,"The current meter value<40uA?",0,YELLOW);
 	
 			beep();
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
 			break;
 		case PROMT_CHECK_DC_DC:
 			display_module_show_string(0, 5+(16+3)*ITEM_DC_DC,16,"2.DC/DC works ok?",0,WHITE);
@@ -315,50 +316,42 @@ void LCD_show_promt_info(PROMT_INFO info)
 		case PROMT_CHECK_10mmHg:
 			display_module_show_string(0, 5+(16+3)*ITEM_10mmHg,16,"7.10mmHg trigger ok?",0,WHITE);
 		
-			display_module_show_string(0, 260,16,"Solid yellow and vibration?",0,YELLOW);
-////			delay_ms(1500);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			display_module_show_string(0, 260-(16+3),16,"LED solid yellow and",0,YELLOW);
+			display_module_show_string(0, 260,16,"vibaration for 5 times?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_GREATER_THAN_2_6V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_6V,16,"8.Work ok on Vb>2.6V?",0,WHITE);
 		
-			display_module_show_string(0, 260,16,"LED solid green?Vibaration?",0,YELLOW);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			display_module_show_string(0, 260,16,"LED green and vibaration?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_BETWEEN_2_45_AND_2_6V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_45_AND_2_6V,16,"9.Work ok on 2.45V<Vb<2.6V?",0,WHITE);
-		
-			display_module_show_string(0, 260,16,"Flash yellow then turn green?",0,YELLOW);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			
+			display_module_show_string(0, 260-(16+3),16,"Yellow LED falsh 5 times then",0,YELLOW);
+			display_module_show_string(0, 260,16,"turn green and vibaration?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_LESS_THAN_2_45V:
 			display_module_show_string(0, 5+(16+3)*ITEM_Vb_2_45V,16,"10.Work ok on Vb<2.45V?",0,WHITE);
-		
-			display_module_show_string(0, 260,16,"Solid yellow and vibration?",0,YELLOW);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			
+			display_module_show_string(0, 260-(16+3),16,"LED solid yellow and",0,YELLOW);
+			display_module_show_string(0, 260,16,"vibaration for 5 times?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_POWER_ON_KEY:
 			display_module_show_string(0, 5+(16+3)*ITEM_POWER_ON_KEY,16,"11.Manual power on/off ok?",0,WHITE);
-		
-			display_module_show_string(0, 260,16,"Manual power on/off ok?",0,YELLOW);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			
+			display_module_show_string(0, 260-(16+3),16,"Pleas press POWER button to",0,YELLOW);
+			display_module_show_string(0, 260,16,"see if it works ok?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_MODE_KEY:
 			display_module_show_string(0, 5+(16+3)*ITEM_MODE_KEY,16,"12.Manual choose mode ok?",0,WHITE);
 			
-			display_module_show_string(0, 260,16,"Manual choose mode ok?",0,YELLOW);
-//			display_module_show_string(100, 290,24,"Yes",0,YELLOW);
-//			display_module_show_string(200, 290,24,"No",0,YELLOW);
+			display_module_show_string(0, 260-(16+3),16,"Pleas press MODE button to",0,YELLOW);
+			display_module_show_string(0, 260,16,"see if it works ok?",0,YELLOW);
 			beep();
 			break;
 		case PROMT_CHECK_SLEEP_CURRENT_Y:
@@ -436,14 +429,12 @@ void LCD_show_promt_info(PROMT_INFO info)
 		case PROMT_CHECK_FAIL:
 			display_module_show_string(80,248,40,"FAIL",0,RED);
 			display_module_show_string(0, 290,24,"Start",0,YELLOW);
-//		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 			beep();
 			break;
 		case PROMT_CHECK_FINISH:
 			display_module_show_string(80,248,40,"PASS",0,GREEN);
 //			display_module_show_string(0, 290,24,"Start",0,YELLOW);
 			display_module_show_string(0, 290,24,"End",0,YELLOW);
-//		  EMD_PCB_operate_on(EMD_OP_STOP_TEST_SLEEP_CURRENT);
 			beep();
 			break;
 		default:
@@ -1078,8 +1069,7 @@ void EMD_PCB_test_task(void)
 			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY); 
 //			re_power_on_EMD_PCBA();
 			shut_down_EMD_PCBA();
-			Set_PIN(ENUM_PIN_JDQ2,FALSE);
-			delay_ms(1000);
+
 			LCD_show_promt_info(PROMT_YES_NO);	
 			
 			EMD_check_status=EMD_CHECK_POWER_ON_KEY;
@@ -1162,10 +1152,12 @@ void EMD_PCB_test_task(void)
 		if(b_startKey_pressed)
 		{
 			EMD_PCB_operate_on(EMD_OP_OPEN_VALVE); 
+			
 			shut_down_EMD_PCBA();
 			
 			Init_all_keys();
 //			EMD_check_status=EMD_CHECK_START;
+			
 			EMD_check_status=EMD_CHECK_PREV_START;
 			LCD_show_promt_info(PROMT_CHECK_START);
 		}

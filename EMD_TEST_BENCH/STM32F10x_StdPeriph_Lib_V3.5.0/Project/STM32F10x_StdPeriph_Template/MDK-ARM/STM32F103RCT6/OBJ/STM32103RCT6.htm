@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\STM32F103RCT6\OBJ\STM32103RCT6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\STM32F103RCT6\OBJ\STM32103RCT6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sun Mar 10 22:14:58 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sun Mar 10 23:17:48 2019
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -420,7 +420,7 @@ Global Symbols
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
-<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1624 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
+<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1608 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = EMD_PCB_test_task &rArr; LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_get_sw_version
@@ -434,7 +434,6 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trans_xmmHg_2_adc_value
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_PIN
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_delay_ms
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
@@ -839,7 +838,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
-<P><STRONG><a name="[52]"></a>LCD_show_promt_info</STRONG> (Thumb, 2174 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
+<P><STRONG><a name="[52]"></a>LCD_show_promt_info</STRONG> (Thumb, 2362 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_module_show_string
@@ -972,7 +971,6 @@ Global Symbols
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
-<LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
@@ -1387,7 +1385,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
 </UL>
 
-<P><STRONG><a name="[5b]"></a>shut_down_EMD_PCBA</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.shut_down_EMD_PCBA))
+<P><STRONG><a name="[5b]"></a>shut_down_EMD_PCBA</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.shut_down_EMD_PCBA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = shut_down_EMD_PCBA &rArr; Set_PIN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_PIN
