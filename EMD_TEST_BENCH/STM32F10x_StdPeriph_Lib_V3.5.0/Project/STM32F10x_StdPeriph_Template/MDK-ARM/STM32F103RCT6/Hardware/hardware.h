@@ -260,6 +260,7 @@ void Init_MODE_KEY(void);
 void Init_UART_Comm_with_PCBA(void);
 
 void Init_I2C(void);
+void Reset_I2C(void);
 
 //void Set_V1(BOOL b_open);
 //void Set_V2(BOOL b_open);

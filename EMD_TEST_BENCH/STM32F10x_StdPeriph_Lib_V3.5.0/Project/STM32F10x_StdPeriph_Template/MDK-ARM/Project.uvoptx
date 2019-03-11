@@ -2370,6 +2370,11 @@
           <WinNumber>2</WinNumber>
           <ItemText>_10mmHg,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>\\STM32103RCT6\STM32F103RCT6/App/honeywell_sampling_data.c\HONEYWELL_ZERO_POINT</ItemText>
+        </Ww>
       </WatchWindow2>
       <Tracepoint>
         <THDelay>0</THDelay>

@@ -125,7 +125,8 @@ void Set_PIN(PIN_NAME name,BOOL b_open)
 {
 	GPIO_TypeDef* GPIO_X=0;
 	uint16_t      PIN_X=0;
-	switch((int)name)
+	int pin_name=(int)name;
+	switch(pin_name)
 	{
 		case ENUM_PIN_LED:
 			GPIO_X=LED_PORT;
@@ -488,6 +489,12 @@ void Init_I2C(void)
 	GPIO_SetBits(RST_IO_PORT,RST_IO_PIN);
 }
 
+void Reset_I2C()
+{
+	GPIO_ResetBits(RST_IO_PORT,RST_IO_PIN);
+	delay_ms(100);
+	GPIO_SetBits(RST_IO_PORT,RST_IO_PIN);
+}
 
 /**************************************************************
 * …Ë÷√V1,V2

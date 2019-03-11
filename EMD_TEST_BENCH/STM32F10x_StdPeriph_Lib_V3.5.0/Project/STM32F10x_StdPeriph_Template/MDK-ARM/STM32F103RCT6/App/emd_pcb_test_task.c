@@ -215,6 +215,8 @@ void EMD_PCB_operate_on(EMD_PCB_OPERATE op)
 			Set_PIN(ENUM_PIN_V2,FALSE);
 			break;
 		case EMD_OP_CUTOFF_POWER_SUPPLY:
+			Set_PIN(ENUM_PIN_JDQ1,FALSE);
+			Set_PIN(ENUM_PIN_JDQ2,FALSE);
 			break;
 		case EMD_OP_PRESS_POWER_BUTTON:
 			Set_PIN(ENUM_PIN_START_KEY,TRUE);
@@ -240,20 +242,34 @@ void EMD_PCB_operate_on(EMD_PCB_OPERATE op)
 void re_power_on_EMD_PCBA()
 {
 	//how to cut off EMD PCBA power supply?
-	//open JDQ2 then close JDQ2
-	Set_PIN(ENUM_PIN_JDQ2,TRUE);
+	//open JDQ1 then close JDQ1
+	EMD_PCB_operate_on(EMD_OP_CUTOFF_POWER_SUPPLY);
 	delay_ms(500);
-	Set_PIN(ENUM_PIN_JDQ2,FALSE);
+	Set_PIN(ENUM_PIN_JDQ1,TRUE);
 	delay_ms(1000);
 	EMD_PCB_operate_on(EMD_OP_PRESS_POWER_BUTTON);
+	
+//	Set_PIN(ENUM_PIN_JDQ2,TRUE);
+//	delay_ms(500);
+//	Set_PIN(ENUM_PIN_JDQ2,FALSE);
+//	delay_ms(1000);
+//	EMD_PCB_operate_on(EMD_OP_PRESS_POWER_BUTTON);
 }
 
 void shut_down_EMD_PCBA()
 {
-	Set_PIN(ENUM_PIN_JDQ2,TRUE);
-	delay_ms(500);
-	Set_PIN(ENUM_PIN_JDQ2,FALSE);
-	delay_ms(500);
+//	Set_PIN(ENUM_PIN_JDQ2,FALSE);
+//	Set_PIN(ENUM_PIN_JDQ1,FALSE);
+//	delay_ms(500);
+////	Set_PIN(ENUM_PIN_JDQ1,FALSE);
+////	delay_ms(500);
+		EMD_PCB_operate_on(EMD_OP_CUTOFF_POWER_SUPPLY);
+		delay_ms(500);
+	
+//	Set_PIN(ENUM_PIN_JDQ2,TRUE);
+//	delay_ms(500);
+//	Set_PIN(ENUM_PIN_JDQ2,FALSE);
+//	delay_ms(1000);
 }
 
 void beep()
@@ -596,6 +612,8 @@ void Init_gloable_var()
 	b_get_sw_version_success=FALSE;
 	b_get_para_success=FALSE;
 	b_get_pressure_zero_point=FALSE;	
+	
+	adc_pressure_value=0;
 }
 
 /*******************************************************************************
@@ -645,6 +663,8 @@ void EMD_PCB_test_task(void)
 	
 	if(EMD_check_status==EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION)
 	{
+		Reset_I2C();   //it's important, if I2C dead ,it can be recovery 
+		EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
 		LCD_show_promt_info(PROMT_CHECK_START);
 		EMD_check_status=EMD_CHECK_PREV_START;
 	}
@@ -665,7 +685,7 @@ void EMD_PCB_test_task(void)
 		b_reach_10mmHg=FALSE;
 		HONEYWELL_ZERO_POINT=0;
 		
-		EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
+//		EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
 
 //		set_lcd_backlight(1);
 //		lcd_draw_rect_real(0,0,239,319,BACK_COLOR);
@@ -820,10 +840,11 @@ void EMD_PCB_test_task(void)
 //					EMD_check_status=EMD_CHECK_GET_PRESSURE_ZERO_POINT;
 					
 					EMD_check_status=EMD_CHECK_08mmHg;
-
+					EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
 					LCD_show_promt_info(PROMT_CHECK_08mmHg);
-				
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,50);
+					delay_ms(1000);
+
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,90);
 					HONEYWELL_ZERO_POINT=adc_pressure_value;    //get zero point
 				}
 			}
@@ -872,16 +893,16 @@ void EMD_PCB_test_task(void)
 			Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 			
 			EMD_check_status=EMD_CHECK_FAIL;
-			LCD_show_promt_info(PROMT_CHECK_FAIL);
 			LCD_show_promt_info(PROMT_CHECK_08mmHg_N);
+			LCD_show_promt_info(PROMT_CHECK_FAIL);
 		}
 		else
 		{
-			static uint32_t _08mmHg;
-			static uint32_t _10mmHg;
-			_08mmHg=trans_xmmHg_2_adc_value(default_parameter_buf[0]);
-			_10mmHg=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD);
-			
+//			static uint32_t _08mmHg;
+//			static uint32_t _10mmHg;
+//			_08mmHg=trans_xmmHg_2_adc_value(default_parameter_buf[0]);
+//			_10mmHg=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD);
+//			
 			
 			//if(b_getHoneywellZeroPoint)
 			if(adc_pressure_value<0x00F00000) //983,040(0F0000) about 58mmHg
@@ -893,9 +914,9 @@ void EMD_PCB_test_task(void)
 					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 					
 					EMD_check_status=EMD_CHECK_10mmHg;
-//					LCD_show_promt_info(PROMT_CHECK_10mmHg);
+					LCD_show_promt_info(PROMT_CHECK_10mmHg);
 					
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,46);
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,50);
 				}
 			}
 		}
@@ -909,8 +930,9 @@ void EMD_PCB_test_task(void)
 			
 			EMD_check_status=EMD_CHECK_FAIL;
 
-			LCD_show_promt_info(PROMT_CHECK_FAIL);
+//			LCD_show_promt_info(PROMT_CHECK_10mmHg);
 			LCD_show_promt_info(PROMT_CHECK_10mmHg_N);
+			LCD_show_promt_info(PROMT_CHECK_FAIL);
 		}
 		else
 		{
@@ -920,18 +942,18 @@ void EMD_PCB_test_task(void)
 				{
 					b_show_10mmHg=TRUE;
 					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
-					LCD_show_promt_info(PROMT_CHECK_10mmHg);
+//					LCD_show_promt_info(PROMT_CHECK_10mmHg);
 //					LCD_show_promt_info(PROMT_YES_NO);
 
 //					delay_ms(500);
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,20);
+					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,90);
 				}
 			}
 			
 			if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
 			{
 				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
-				delay_ms(800);                                       //It's depend on the real gas pipe
+				delay_ms(1000);                                       //It's depend on the real gas pipe
 				
 				EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
 				for(int i=0;i<5;i++)
@@ -1069,6 +1091,8 @@ void EMD_PCB_test_task(void)
 			LCD_show_promt_info(PROMT_CHECK_POWER_ON_KEY); 
 //			re_power_on_EMD_PCBA();
 			shut_down_EMD_PCBA();
+			Set_PIN(ENUM_PIN_JDQ1,TRUE);
+			delay_ms(500);
 
 			LCD_show_promt_info(PROMT_YES_NO);	
 			
