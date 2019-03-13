@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\STM32F103RCT6\OBJ\STM32103RCT6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\STM32F103RCT6\OBJ\STM32103RCT6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Mar 11 12:23:36 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Mar 12 16:56:10 2019
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -349,7 +349,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery2ForParameters
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_get_sw_version
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
 </UL>
 
 <P><STRONG><a name="[47]"></a>DISP_FNT12X24</STRONG> (Thumb, 228 bytes, Stack size 40 bytes, display_module.o(i.DISP_FNT12X24))
@@ -416,25 +416,25 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_PIN
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
+<BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
-<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1612 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
+<P><STRONG><a name="[3b]"></a>EMD_PCB_test_task</STRONG> (Thumb, 1584 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.EMD_PCB_test_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = EMD_PCB_test_task &rArr; LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_get_sw_version
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_all_keys
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Is_timing_Xmillisec
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Is_timing_Xmillisec
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_gloable_var
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trans_xmmHg_2_adc_value
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trans_xmmHg_2_adc_value
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_PIN
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_I2C
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_delay_ms
@@ -767,7 +767,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
-<P><STRONG><a name="[54]"></a>Init_gloable_var</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, emd_pcb_test_task.o(i.Init_gloable_var))
+<P><STRONG><a name="[54]"></a>Init_gloable_var</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, emd_pcb_test_task.o(i.Init_gloable_var))
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
@@ -829,7 +829,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;protocol_module_process
 </UL>
 
-<P><STRONG><a name="[57]"></a>Is_timing_Xmillisec</STRONG> (Thumb, 206 bytes, Stack size 0 bytes, emd_pcb_test_task.o(i.Is_timing_Xmillisec))
+<P><STRONG><a name="[58]"></a>Is_timing_Xmillisec</STRONG> (Thumb, 222 bytes, Stack size 0 bytes, emd_pcb_test_task.o(i.Is_timing_Xmillisec))
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
@@ -843,10 +843,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
-<P><STRONG><a name="[53]"></a>LCD_show_promt_info</STRONG> (Thumb, 2362 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
+<P><STRONG><a name="[53]"></a>LCD_show_promt_info</STRONG> (Thumb, 2368 bytes, Stack size 24 bytes, emd_pcb_test_task.o(i.LCD_show_promt_info))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = LCD_show_promt_info &rArr; display_module_show_string &rArr; display_module_show_str &rArr; LCD_ShowChar &rArr; DISP_FNT20X40 &rArr; LCD_CrtlWrite_Area &rArr; lcd_crtl_write_area
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_module_show_string
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_lcd_backlight
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rect_real
@@ -857,7 +858,7 @@ Global Symbols
 <P><STRONG><a name="[3]"></a>MemManage_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.MemManage_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[59]"></a>Motor_PWM_Freq_Dudy_Set</STRONG> (Thumb, 130 bytes, Stack size 48 bytes, motor_pwm.o(i.Motor_PWM_Freq_Dudy_Set))
+<P><STRONG><a name="[5a]"></a>Motor_PWM_Freq_Dudy_Set</STRONG> (Thumb, 130 bytes, Stack size 48 bytes, motor_pwm.o(i.Motor_PWM_Freq_Dudy_Set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Motor_PWM_Freq_Dudy_Set &rArr; TIM_OC1Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
@@ -958,7 +959,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initial
 </UL>
 
-<P><STRONG><a name="[58]"></a>SendQuery1ForParameters</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, protocol_module.o(i.SendQuery1ForParameters))
+<P><STRONG><a name="[59]"></a>SendQuery1ForParameters</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, protocol_module.o(i.SendQuery1ForParameters))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = SendQuery1ForParameters &rArr; fifoWriteData
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalcCheckSum
@@ -982,7 +983,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
@@ -1042,17 +1043,17 @@ Global Symbols
 <P><STRONG><a name="[a8]"></a>TIM_OC1Init</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, stm32f10x_tim.o(i.TIM_OC1Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM_OC1Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
+<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Config
 </UL>
 
 <P><STRONG><a name="[a9]"></a>TIM_OC1PreloadConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_OC1PreloadConfig))
-<BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
+<BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Config
 </UL>
 
 <P><STRONG><a name="[a7]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
-<BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
+<BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Freq_Dudy_Set
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_PWM_Config
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_tim
 </UL>
@@ -1135,8 +1136,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[51]"></a>delay_ms</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, delay.o(i.delay_ms))
-<BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
+<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shut_down_EMD_PCBA
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;re_power_on_EMD_PCBA
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;beep
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModuleUnPackFrame
@@ -1181,7 +1182,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery2ForParameters
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_get_sw_version
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendQuery1ForParameters
 </UL>
 
 <P><STRONG><a name="[c1]"></a>honeywell_readByte</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, i2c.o(i.honeywell_readByte))
@@ -1378,7 +1379,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModuleProcessPacket
 </UL>
 
-<P><STRONG><a name="[5b]"></a>re_power_on_EMD_PCBA</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.re_power_on_EMD_PCBA))
+<P><STRONG><a name="[5c]"></a>re_power_on_EMD_PCBA</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.re_power_on_EMD_PCBA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = re_power_on_EMD_PCBA &rArr; EMD_PCB_operate_on &rArr; Set_PIN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
@@ -1401,16 +1402,17 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
 </UL>
 
-<P><STRONG><a name="[5c]"></a>shut_down_EMD_PCBA</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.shut_down_EMD_PCBA))
+<P><STRONG><a name="[57]"></a>shut_down_EMD_PCBA</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, emd_pcb_test_task.o(i.shut_down_EMD_PCBA))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = shut_down_EMD_PCBA &rArr; EMD_PCB_operate_on &rArr; Set_PIN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_operate_on
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_show_promt_info
+<LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task
 </UL>
 
-<P><STRONG><a name="[5a]"></a>trans_xmmHg_2_adc_value</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, honeywell_sampling_data.o(i.trans_xmmHg_2_adc_value))
+<P><STRONG><a name="[5b]"></a>trans_xmmHg_2_adc_value</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, honeywell_sampling_data.o(i.trans_xmmHg_2_adc_value))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = trans_xmmHg_2_adc_value
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EMD_PCB_test_task

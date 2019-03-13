@@ -11,10 +11,9 @@
 //extern uint16_t RegularConvData_Tab[2]; 
 #endif
 
-//#define HONEYWELL_RATE			11185   //斜率,根据公式算出来的
-#define HONEYWELL_RATE			9000
-
-
+//斜率,根据公式算出来的
+//#define HONEYWELL_RATE			11185   
+//#define HONEYWELL_RATE			9000
 
 
 //extern uint32_t adc_value[2];

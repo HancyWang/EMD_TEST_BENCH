@@ -40,6 +40,7 @@
 #define TIMEOUT_ZERO_POINT		3
 #define TIMEOUT_08mmHg				4
 #define TIMEOUT_10mmHg				5
+#define TIMEOUT_HOLD_GAS			6
 
 #define ITEM_SLEEP_CURRENT					0
 #define ITEM_DC_DC									1
@@ -54,6 +55,10 @@
 #define ITEM_POWER_ON_KEY						10
 #define ITEM_MODE_KEY								11
 
+
+#define PID_P 1
+#define PID_I 0
+#define PID_D (5)
 
 /******************************************************
 *内部类型定义
@@ -145,6 +150,9 @@ uint32_t prev_08mmHg_os_tick;
 
 BOOL _10mmHg_timing_flag=TRUE;
 uint32_t prev_10mmHg_os_tick;
+
+BOOL hold_gas_flag=TRUE;
+uint32_t prev_hold_gas_os_tick;
 
 EMD_PCB_TEST_STATUS EMD_check_status=EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION;
 //EMD_PCB_TEST_STATUS EMD_check_status=EMD_CHECK_NONE;
@@ -445,6 +453,7 @@ void LCD_show_promt_info(PROMT_INFO info)
 		case PROMT_CHECK_FAIL:
 			display_module_show_string(80,248,40,"FAIL",0,RED);
 			display_module_show_string(0, 290,24,"Start",0,YELLOW);
+			shut_down_EMD_PCBA();
 			beep();
 			break;
 		case PROMT_CHECK_FINISH:
@@ -547,6 +556,10 @@ BOOL Is_timing_Xmillisec(uint32_t n_ms,uint8_t num)
 			b_timing_flag=&_10mmHg_timing_flag;
 			p_prev_os_tick=&prev_10mmHg_os_tick;
 			break;
+		case TIMEOUT_HOLD_GAS:
+			b_timing_flag=&hold_gas_flag;
+			p_prev_os_tick=&prev_hold_gas_os_tick;
+			break;
 		default:
 			break;
 	}
@@ -599,6 +612,9 @@ void Init_gloable_var()
 	_10mmHg_timing_flag=TRUE;
 	prev_10mmHg_os_tick=0;
 	
+	hold_gas_flag=TRUE;
+	prev_hold_gas_os_tick=0;
+	
 	diff_in_EMD_and_CtrlBoard=0;
 	HONEYWELL_ZERO_POINT=0;
 	EMD_PRESSURE_ZERO_POINT=0;
@@ -634,33 +650,7 @@ extern BOOL b_nextKey_pressed;
 extern BOOL b_startKey_pressed;
 
 void EMD_PCB_test_task(void)
-{
-	#if 0
-//	EMD_PCB_operate_on(EMD_OP_SUPPLY_MOTORS_POWER);
-//	EMD_PCB_operate_on(EMD_OP_START_TEST_SLEEP_CURRENT);
-//	
-////	if(EMD_check_status==EMD_CHECK_NONE)
-////	{
-////		Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,55);
-////		for(int i=0;i<5;i++)
-////		{
-////			delay_ms(1000);
-////		}
-////		Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
-////		
-////		EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
-////		
-////		delay_ms(1000);
-////		delay_ms(1000);
-////		delay_ms(1000);
-////		EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
-////		delay_ms(1000);
-////		delay_ms(1000);
-////		delay_ms(1000);
-////		delay_ms(1000);
-////	}
-#endif
-	
+{	
 	if(EMD_check_status==EMD_CHECK_PCBA_ON_THE_RIGHT_POSITION)
 	{
 		Reset_I2C();   //it's important, if I2C dead ,it can be recovery 
@@ -676,7 +666,6 @@ void EMD_PCB_test_task(void)
 			EMD_check_status=EMD_CHECK_START;
 		}
 	}
-	
 	
 	//0.Start checking...
 	if(EMD_check_status==EMD_CHECK_START)
@@ -750,6 +739,7 @@ void EMD_PCB_test_task(void)
 			EMD_check_status=EMD_CHECK_FAIL;
 			LCD_show_promt_info(PROMT_CHECK_FAIL); 
 		}
+//		EMD_PCB_operate_on(EMD_OP_PRESS_POWER_BUTTON); 
 	}
 	
 	//3.Check Motors
@@ -768,6 +758,7 @@ void EMD_PCB_test_task(void)
 			LCD_show_promt_info(PROMT_CHECK_MOTORS_N);
 			EMD_check_status=EMD_CHECK_FAIL;
 			LCD_show_promt_info(PROMT_CHECK_FAIL); 
+			shut_down_EMD_PCBA();
 		}
 	}
 	
@@ -895,6 +886,7 @@ void EMD_PCB_test_task(void)
 			EMD_check_status=EMD_CHECK_FAIL;
 			LCD_show_promt_info(PROMT_CHECK_08mmHg_N);
 			LCD_show_promt_info(PROMT_CHECK_FAIL);
+			shut_down_EMD_PCBA();
 		}
 		else
 		{
@@ -921,10 +913,83 @@ void EMD_PCB_test_task(void)
 			}
 		}
 	}
-	//7.1 check 10mmHg
+	
+	//pending verification
+	#if 0
 	if(EMD_check_status==EMD_CHECK_10mmHg)
 	{
-		if(Is_timing_Xmillisec(5000,TIMEOUT_10mmHg))   
+//		if(Is_timing_Xmillisec(8000,TIMEOUT_10mmHg))
+//		{
+//			//			Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
+
+//			EMD_check_status=EMD_CHECK_FAIL;
+
+//			//			LCD_show_promt_info(PROMT_CHECK_10mmHg);
+//			LCD_show_promt_info(PROMT_CHECK_10mmHg_N);
+//			LCD_show_promt_info(PROMT_CHECK_FAIL);
+//		}
+//		else
+		{
+			//DIP
+			uint32_t pressuer_target_high=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT);
+			uint32_t pressuer_target_low=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT);
+			static uint32_t integration_sum;  //积分值
+			static uint16_t prev_pressure_adc_value;
+			
+			if(adc_pressure_value<=pressuer_target_high)
+			{
+				uint16_t pressure_diff=pressuer_target_high-adc_pressure_value; //计算差值
+
+				//设置PID中的P值
+				//参见 #define PID_P 1.2
+				
+				//设置PID中的I，积分
+				integration_sum+=adc_pressure_value;
+				
+				//设置PID中的D值，微分
+				uint16_t div=0;
+				//第一次运行的时候，刹车会踩的很猛，因为第一次prev_pressure_adc_value=0,pressure_adc_value-prev_pressure_adc_value差值会很大
+				//没有必要修正第一次，第一次刹车猛，大不了不充气，但是到第二次就正常运行了
+				if(adc_pressure_value>=prev_pressure_adc_value)
+				{
+					 div=(adc_pressure_value-prev_pressure_adc_value)/EMD_PCB_TEST_PERIOD;  //EMD_PCB_TEST_PERIOD=10,任务的循环时间
+				}
+				
+				//将PID中P,I,D对应相加
+				static uint16_t dutyCycle=0;
+//						dutyCycle=(PID_P*pressure_diff>=100?100:PID_P*pressure_diff)+PID_I*integration_sum;
+				dutyCycle=PID_P*pressure_diff+PID_I*integration_sum+PID_D*div;
+				if(dutyCycle<=0)
+				{
+					dutyCycle=0;
+				}
+				else
+				{
+					dutyCycle=dutyCycle>=100?100:dutyCycle;  //dutyCycle的值不能超过100%
+				}
+
+				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,100,dutyCycle);  //更改占空比,控制充气速度
+				
+				prev_pressure_adc_value=adc_pressure_value;  //存取这一次的值，作为下一次的"上一次值"
+			}
+			else
+			{
+				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,100,0);
+				integration_sum=0;
+				prev_pressure_adc_value=0;
+			}
+		}
+	}
+	#endif
+	
+	
+	
+	
+	//7.1 check 10mmHg
+	#if 1
+	if(EMD_check_status==EMD_CHECK_10mmHg)
+	{
+		if(Is_timing_Xmillisec(10000,TIMEOUT_10mmHg))   
 		{
 			Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 			
@@ -936,36 +1001,64 @@ void EMD_PCB_test_task(void)
 		}
 		else
 		{
-			if(!b_show_10mmHg)
-			{
-				if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT))
-				{
-					b_show_10mmHg=TRUE;
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
-//					LCD_show_promt_info(PROMT_CHECK_10mmHg);
-//					LCD_show_promt_info(PROMT_YES_NO);
+//			if(!b_show_10mmHg)
+//			{
+//				if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT))
+//				{
+//					b_show_10mmHg=TRUE;
+//					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
+////					LCD_show_promt_info(PROMT_CHECK_10mmHg);
+////					LCD_show_promt_info(PROMT_YES_NO);
 
-//					delay_ms(500);
-					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,90);
-				}
-			}
+//					delay_ms(100);
+//					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,90);
+//				}
+//			}
 			
+//			if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
+//			{
+//				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
+//				
+//				if(Is_timing_Xmillisec(2000,TIMEOUT_HOLD_GAS))   
+//				{
+//					EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
+//					for(int i=0;i<5;i++)
+//					{
+//						delay_ms(1000);
+//					}
+//					LCD_show_promt_info(PROMT_YES_NO);
+//					b_reach_10mmHg=TRUE;
+//					EMD_check_status=EMD_CHECK_KEY_PRESSED_AFTER_10mmHg;
+//				}
+//			}
 			if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
 			{
 				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
-				delay_ms(1000);                                       //It's depend on the real gas pipe
-				
-				EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
-				for(int i=0;i<5;i++)
-				{
-					delay_ms(1000);
-				}
-				LCD_show_promt_info(PROMT_YES_NO);
 				b_reach_10mmHg=TRUE;
-				EMD_check_status=EMD_CHECK_KEY_PRESSED_AFTER_10mmHg;
 			}
+			
+			if(b_reach_10mmHg)
+			{
+				if(Is_timing_Xmillisec(2000,TIMEOUT_HOLD_GAS))   
+				{
+					EMD_PCB_operate_on(EMD_OP_OPEN_VALVE);
+					for(int i=0;i<5;i++)
+					{
+						delay_ms(1000);
+					}
+					LCD_show_promt_info(PROMT_YES_NO);
+					b_reach_10mmHg=FALSE;
+					EMD_check_status=EMD_CHECK_KEY_PRESSED_AFTER_10mmHg;
+				}
+			}
+			
+			
+
 		}
 	}
+	#endif
+
+
 	//7.2
 	if(EMD_check_status==EMD_CHECK_KEY_PRESSED_AFTER_10mmHg)
 	{
@@ -1177,13 +1270,13 @@ void EMD_PCB_test_task(void)
 		{
 			EMD_PCB_operate_on(EMD_OP_OPEN_VALVE); 
 			
-			shut_down_EMD_PCBA();
-			
 			Init_all_keys();
 //			EMD_check_status=EMD_CHECK_START;
 			
 			EMD_check_status=EMD_CHECK_PREV_START;
 			LCD_show_promt_info(PROMT_CHECK_START);
+			
+			shut_down_EMD_PCBA();
 		}
 	}
 	
