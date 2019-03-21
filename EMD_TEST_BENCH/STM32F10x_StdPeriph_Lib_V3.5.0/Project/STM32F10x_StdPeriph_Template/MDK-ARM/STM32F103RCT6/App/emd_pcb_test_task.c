@@ -335,10 +335,10 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 5+(16+3)*ITEM_PARA,16,"5.Parameters are right?",0,WHITE);
 			break;
 		case PROMT_CHECK_08mmHg:
-			display_module_show_string(0, 5+(16+3)*ITEM_08mmHg,16,"6.0.8mmHg trigger ok?",0,WHITE);
+			display_module_show_string(0, 5+(16+3)*ITEM_08mmHg,16,"6.1.0mmHg trigger ok?",0,WHITE);
 			break;
 		case PROMT_CHECK_10mmHg:
-			display_module_show_string(0, 5+(16+3)*ITEM_10mmHg,16,"7.10mmHg trigger ok?",0,WHITE);
+			display_module_show_string(0, 5+(16+3)*ITEM_10mmHg,16,"7.20mmHg trigger ok?",0,WHITE);
 		
 			display_module_show_string(0, 260-(16+3),16,"LED solid yellow and",0,YELLOW);
 			display_module_show_string(0, 260,16,"vibaration for 5 times?",0,YELLOW);
@@ -830,7 +830,7 @@ void EMD_PCB_test_task(void)
 //					send_get_pressure_zero_point();
 //					EMD_check_status=EMD_CHECK_GET_PRESSURE_ZERO_POINT;
 					
-					EMD_check_status=EMD_CHECK_08mmHg;
+					EMD_check_status=EMD_CHECK_1_0mmHg;
 					EMD_PCB_operate_on(EMD_OP_CLOSE_VALVE);
 					LCD_show_promt_info(PROMT_CHECK_08mmHg);
 					delay_ms(1000);
@@ -877,7 +877,7 @@ void EMD_PCB_test_task(void)
 	#endif
 	
 	//6. 2>judge wheter the pressure reach 0.8mmHg 
-	if(EMD_check_status==EMD_CHECK_08mmHg)
+	if(EMD_check_status==EMD_CHECK_1_0mmHg)
 	{
 		if(Is_timing_Xmillisec(5000,TIMEOUT_08mmHg))   
 		{
@@ -900,12 +900,12 @@ void EMD_PCB_test_task(void)
 			if(adc_pressure_value<0x00F00000) //983,040(0F0000) about 58mmHg
 			{
 				if(adc_pressure_value>=trans_xmmHg_2_adc_value(default_parameter_buf[0])
-				&&adc_pressure_value<=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD))
+				&&adc_pressure_value<=PRESSURE_SENSOR_VALUE(PRESSURE_SAFETY_THRESHOLD))
 				{
 					LCD_show_promt_info(PROMT_CHECK_08mmHg_Y);
 					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 					
-					EMD_check_status=EMD_CHECK_10mmHg;
+					EMD_check_status=EMD_CHECK_20mmHg;
 					LCD_show_promt_info(PROMT_CHECK_10mmHg);
 					
 					Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,50);
@@ -931,8 +931,11 @@ void EMD_PCB_test_task(void)
 //		else
 		{
 			//DIP
-			uint32_t pressuer_target_high=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT);
-			uint32_t pressuer_target_low=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT);
+//			uint32_t pressuer_target_high=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT);
+//			uint32_t pressuer_target_low=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT);
+			uint32_t pressuer_target_high=PRESSURE_SENSOR_VALUE(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT);
+			uint32_t pressuer_target_low=PRESSURE_SENSOR_VALUE(PRESSURE_SAFETY_THRESHOLD_LOW_LIMIT);
+			
 			static uint32_t integration_sum;  //»ý·ÖÖµ
 			static uint16_t prev_pressure_adc_value;
 			
@@ -985,9 +988,9 @@ void EMD_PCB_test_task(void)
 	
 	
 	
-	//7.1 check 10mmHg
+	//7.1 check 20mmHg
 	#if 1
-	if(EMD_check_status==EMD_CHECK_10mmHg)
+	if(EMD_check_status==EMD_CHECK_20mmHg)
 	{
 		if(Is_timing_Xmillisec(10000,TIMEOUT_10mmHg))   
 		{
@@ -1031,7 +1034,7 @@ void EMD_PCB_test_task(void)
 //					EMD_check_status=EMD_CHECK_KEY_PRESSED_AFTER_10mmHg;
 //				}
 //			}
-			if(adc_pressure_value>=trans_xmmHg_2_adc_value(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
+			if(adc_pressure_value>=PRESSURE_SENSOR_VALUE(PRESSURE_SAFETY_THRESHOLD_HIGH_LIMIT))
 			{
 				Motor_PWM_Freq_Dudy_Set(PWM_PUMP,3000,0);
 				b_reach_10mmHg=TRUE;

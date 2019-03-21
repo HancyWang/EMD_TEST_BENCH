@@ -24,8 +24,8 @@ typedef enum
 	EMD_CHECK_DC_DC,																//check DC/DC
 	EMD_CHECK_MOTORS,																//check motors
 	EMD_CHECK_GET_PRESSURE_ZERO_POINT,              //get zero point from EMD PCBA£¬this is very important
-	EMD_CHECK_08mmHg,																//check 0.8mmHg
-	EMD_CHECK_10mmHg,																//check 10mmHg
+	EMD_CHECK_1_0mmHg,																//check 1.0mmHg
+	EMD_CHECK_20mmHg,																//check 20mmHg
 	EMD_CHECK_KEY_PRESSED_AFTER_10mmHg,             //After reach 10mmHg,check key pressed
 	EMD_CHECK_BAT_GREATER_THAN_2_6V,     						//check battery voltage >2.6V, UI suppose to be "LED green solid and vibration 0.5s"
 	EMD_CHECK_BAT_BETWEEN_2_45_AND_2_6V,						//check battery voltage between 2.45V and 2.6V,UI suppose to be "LED fast flash x5 times,
