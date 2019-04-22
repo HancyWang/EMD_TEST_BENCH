@@ -39,6 +39,7 @@
 extern const uint8_t default_parameter_buf[PARAMETER_BUF_LEN];
 extern BOOL b_get_pressure_zero_point;
 extern uint32_t EMD_PRESSURE_ZERO_POINT;
+extern const uint8_t SW_VERSION[3];
 
 uint32_t pageBuff[512];
 //BOOL rcvParameters_from_PC=FALSE;
@@ -81,14 +82,15 @@ void protocol_module_send_train_data_check_sum(uint32_t check_sum)
 
 BOOL Is_the_sw_version_right(uint8_t* pdata,char frameId)
 {
-	BOOL rt;
+	BOOL rt=0;
 	if(0x73==frameId)
 	{
-		uint8_t ver_buffer[3];
-		ver_buffer[0]=pdata[4];
-		ver_buffer[1]=pdata[5];
-		ver_buffer[2]=pdata[6];
-		if(ver_buffer[0]==1&&ver_buffer[1]==1&&ver_buffer[2]==0)
+//		static uint8_t ver_buffer[3];
+//		ver_buffer[0]=pdata[4];
+//		ver_buffer[1]=pdata[5];
+//		ver_buffer[2]=pdata[6];
+		
+		if(SW_VERSION[0]==pdata[4]&&SW_VERSION[1]==pdata[5]&&SW_VERSION[2]==pdata[6])
 		{
 			rt=1;
 		}

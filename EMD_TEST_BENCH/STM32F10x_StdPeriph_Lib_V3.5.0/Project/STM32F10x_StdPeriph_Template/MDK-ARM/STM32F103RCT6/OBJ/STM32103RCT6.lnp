@@ -47,6 +47,6 @@
 ".\stm32f103rct6\obj\lang_chinese.o"
 ".\stm32f103rct6\obj\lang_english.o"
 --library_type=microlib --strict --scatter ".\STM32F103RCT6\OBJ\STM32103RCT6.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\STM32100E-EVAL\STM32103RCT6.map" -o .\STM32F103RCT6\OBJ\STM32103RCT6.axf

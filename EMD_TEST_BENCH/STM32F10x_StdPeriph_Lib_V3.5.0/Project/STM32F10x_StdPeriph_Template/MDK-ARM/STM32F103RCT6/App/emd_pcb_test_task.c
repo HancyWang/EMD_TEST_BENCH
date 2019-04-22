@@ -182,7 +182,9 @@ extern BOOL b_getHoneywellZeroPoint;
 //定义字符串
 unsigned char str_Y[]="Y";
 unsigned char str_N[]="N";
-unsigned char str_VERSION[]="V1.0.0";
+//change form 1.0.0 to 1.0.1
+//note:change the parameters
+unsigned char str_VERSION[]="V1.0.1";
 
 /***********************************
 * 局部变量
@@ -329,7 +331,7 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 5+(16+3)*ITEM_MOTORS,16,"3.Motors works ok?",0,WHITE);
 			break;
 		case PROMT_CHECK_SW_VERSION:
-			display_module_show_string(0, 5+(16+3)*ITEM_SW_VERSION,16,"4.SW version is 1.1.0?",0,WHITE);
+			display_module_show_string(0, 5+(16+3)*ITEM_SW_VERSION,16,"4.SW version is 1.2.1?",0,WHITE);
 			break;
 		case PROMT_CHECK_PARA:
 			display_module_show_string(0, 5+(16+3)*ITEM_PARA,16,"5.Parameters are right?",0,WHITE);
