@@ -175,7 +175,7 @@
 		#endif
 };	
 	
-const uint8_t SW_VERSION[3]={1,2,1};
+const uint8_t SW_VERSION[3]={1,2,2};
 
 int main(void)
 {

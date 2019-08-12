@@ -331,7 +331,7 @@ void LCD_show_promt_info(PROMT_INFO info)
 			display_module_show_string(0, 5+(16+3)*ITEM_MOTORS,16,"3.Motors works ok?",0,WHITE);
 			break;
 		case PROMT_CHECK_SW_VERSION:
-			display_module_show_string(0, 5+(16+3)*ITEM_SW_VERSION,16,"4.SW version is 1.2.1?",0,WHITE);
+			display_module_show_string(0, 5+(16+3)*ITEM_SW_VERSION,16,"4.SW version is 1.2.2?",0,WHITE);
 			break;
 		case PROMT_CHECK_PARA:
 			display_module_show_string(0, 5+(16+3)*ITEM_PARA,16,"5.Parameters are right?",0,WHITE);
